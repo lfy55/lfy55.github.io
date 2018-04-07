@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="echarts," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="The main goal of data visualization is its abliity to visualize data, communicating information clearly and effectively   echarts是一个基于JS的数据可视化函数库，它不像jQuery那样会提供给你一系列的函数去处理数据，而是提供给你一个配置对象，你可以通过修改这个对象中">
+<meta name="keywords" content="echarts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="echarts接口说明">
+<meta property="og:url" content="https://github.com/lfy55/2016/09/19/echarts接口说明/index.html">
+<meta property="og:site_name" content="A sanctuary for KID">
+<meta property="og:description" content="The main goal of data visualization is its abliity to visualize data, communicating information clearly and effectively   echarts是一个基于JS的数据可视化函数库，它不像jQuery那样会提供给你一系列的函数去处理数据，而是提供给你一个配置对象，你可以通过修改这个对象中">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-07T04:24:13.894Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="echarts接口说明">
+<meta name="twitter:description" content="The main goal of data visualization is its abliity to visualize data, communicating information clearly and effectively   echarts是一个基于JS的数据可视化函数库，它不像jQuery那样会提供给你一系列的函数去处理数据，而是提供给你一个配置对象，你可以通过修改这个对象中">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/lfy55/2016/09/19/echarts接口说明/"/>
+
+
+
+
+
+  <title>echarts接口说明 | A sanctuary for KID</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A sanctuary for KID</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">personal blog by sqk</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/lfy55/2016/09/19/echarts接口说明/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kid the Phantom Thief">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A sanctuary for KID">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">echarts接口说明</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-19T15:02:21+08:00">
+                2016-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>The main goal of data visualization is its abliity to visualize data, communicating information clearly and effectively</p>
+</blockquote>
+<hr>
+<p><code>echarts</code>是一个基于JS的数据可视化函数库，它不像<code>jQuery</code>那样会提供给你一系列的函数去处理<br>数据，而是提供给你一个配置对象，你可以通过修改这个对象中的内容去控制数据的可视化。</p>
+<a id="more"></a>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><p>其中设置对象<code>option</code>提供很多属性来方便我们修改可视化图表的情况，下面将依次进行介绍：</p>
+<h4 id="title"><a href="#title" class="headerlink" title="title"></a>title</h4><p><code>title</code>属性是一个对象，它控制了图表的标题，每个图表最多只能有一个<code>title</code>对象，可以设定主副两个标题</p>
+<h4 id="toolbox"><a href="#toolbox" class="headerlink" title="toolbox"></a>toolbox</h4><p><code>toolbox</code>属性是一个在图表上提供工具的对象，其中又有<code>feature</code>属性控制其中的工具项，工具项有以下几种：</p>
+<ul>
+<li><p><code>mark</code>：标线</p>
+</li>
+<li><p><code>dataZoom</code>：框选区域缩放，会自动与存在的<code>dataZoom</code>控件同步</p>
+</li>
+<li><p><code>dataView</code>：数据视图，可以设置为只读，用户可以从打开的页面看到所有的数据值，或者指定<code>readOnly</code>为<code>false</code>打开编辑功能，可以让用用户修改数据值，此时打开的页面会提供刷新按钮，方便用户修改完数据之后刷新图表</p>
+</li>
+<li><p><code>magicType</code>：动态类型切换，可以根据当前图表设定可以切换的图表类型</p>
+</li>
+<li><p><code>restore</code>：还原，复位为初始图表，可以将用户对图表进行的所有操作进行撤销，使图表变回初始图表</p>
+</li>
+<li><p><code>saveAsImage</code>：保存为图片，可以将图表保存为<code>png</code>或者<code>jpeg</code>格式的图片</p>
+</li>
+</ul>
+<h4 id="tooltip"><a href="#tooltip" class="headerlink" title="tooltip"></a>tooltip</h4><p><code>tooltip</code>是控制提示框的属性，可以控制鼠标放在图表上的提示框的格式。<br>其中最主要的属性是<code>formatter</code>，可以通过<code>formatter</code>属性的模板或者异步回调函数来控制提示框中内容</p>
+<h4 id="legend"><a href="#legend" class="headerlink" title="legend"></a>legend</h4><p><code>legend</code>是控制图例的属性，每个图表最多只能有一个图例，图例中的<code>data</code>属性是一个数组，里面包含了图例中的所有项</p>
+<h4 id="dataRange"><a href="#dataRange" class="headerlink" title="dataRange"></a>dataRange</h4><p><code>dataRange</code>是值域选择控件的属性，每个图表最多只能有一个值域控件，可以使用<code>splitList</code>属性进行自定义分割，也可以将其置为<code>null</code>使用等距比例尺分割</p>
+<h4 id="dataZoom"><a href="#dataZoom" class="headerlink" title="dataZoom"></a>dataZoom</h4><p><code>dataZoom</code>是控制数据区域缩放的属性，与<code>toolbox.feature.dataZoom</code>同步，但是此属性仅对直角坐标系的图表有效</p>
+<h4 id="grid"><a href="#grid" class="headerlink" title="grid"></a>grid</h4><p><code>grid</code>属性在官方文档中仅说明是直角坐标系内绘图网格，经过我的测试发现这个属性可以控制直角坐标系图表在整个区域的显示大小和位置，它提供了四个属性来控制这些。</p>
+<ul>
+<li>x：直角坐标系左上角的x轴坐标</li>
+<li>y：直角坐标系左上角的y轴坐标</li>
+<li>x2：直角坐标系右下角的x轴坐标</li>
+<li>y2：直角坐标系右下角的y轴坐标</li>
+</ul>
+<h4 id="xAxis"><a href="#xAxis" class="headerlink" title="xAxis"></a>xAxis</h4><p><code>xAxis</code>是控制直角坐标系横坐标的属性，它的值是一个数组，数组中的每一项代表一条坐标轴，当仅有一条时可以省略数组，当两条坐标轴同时存在时位置互斥。</p>
+<h4 id="yAxis"><a href="#yAxis" class="headerlink" title="yAxis"></a>yAxis</h4><p><code>yAxis</code>是控制直角坐标系纵坐标的属性，它的值是一个数组，数组中的每一项代表一条坐标轴，当仅有一条时可以省略数组，当两条坐标轴同时存在时位置互斥。</p>
+<h4 id="axis"><a href="#axis" class="headerlink" title="axis"></a>axis</h4><p>坐标轴一共有三种类型，类目型、数值型和时间型，它们的区别在于：</p>
+<ul>
+<li>category 类目型：需要指定类目列表，坐标轴内有且仅有这些指定类目坐标</li>
+<li>value 数值型：需要指定数值区间，不指定时则自定计算数值范围，坐标轴内包含数值区间内容全部坐标</li>
+<li>time 时间型：时间型坐标轴用法同数值型，只是目标处理和格式化显示时会自动转变为时间，并且随着时间跨度的不同自动切换需要显示的时间粒度</li>
+</ul>
+<h4 id="series"><a href="#series" class="headerlink" title="series"></a>series</h4><p><code>series</code>是所有属性中最重要的，它是驱动图表生成的属性，它的值是一个数组，数组中的每一项为一系列的选项及数据。<br>数组中每一项都可能有以下几个属性：</p>
+<ul>
+<li>type：控制生成图表的类型</li>
+<li>name：系列的名称，如果上面启动了<code>legend</code>属性，则与<code>legend.data</code>索引相关</li>
+<li>data：值是一个数组，为当前系列的图表生成提供数据</li>
+</ul>
+<h4 id="itemStyle"><a href="#itemStyle" class="headerlink" title="itemStyle"></a>itemStyle</h4><p><code>itemStyle</code>属性设置图形的样式，可以分别设置图形的默认样式和强调样式（选中或者悬浮），它的格式如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">itemstyle: &#123;</span><br><span class="line">    normal: &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;,</span><br><span class="line">    emphasis: &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="textStyle"><a href="#textStyle" class="headerlink" title="textStyle"></a>textStyle</h4><p><code>textStyle</code>是控制文字样式的属性，其中包含了<code>color</code>、<code>align</code>、<code>fontFamily</code>、<code>fontSize</code>等属性控制各种文字的样式</p>
+<h4 id="other"><a href="#other" class="headerlink" title="other"></a>other</h4><p>除以上属性外，<code>option</code>中还包含很多其他的属性，如<code>lineStyle</code>、<code>areaStyle</code>、<code>loadingOption</code>等属性</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p><code>echarts</code>给我们提供了20个左右的方法，所有的方法都基于<code>echarts.init()</code>得到的对象</p>
+<h4 id="setOption"><a href="#setOption" class="headerlink" title="setOption"></a>setOption</h4><p>其中最重要的是<code>setOption</code>方法，这个方法是我们使用最多也是每次绘制图表必须使用的方法，这个函数有两个参数：<code>option</code>和<code>notMerge</code>，其中option就是我们对图表的设置，用来控制图表的生成，<code>notMerge</code>参数则是控制本次对图表的设置与上次的<code>myChart</code>对象的设置是否进行合并（merge）</p>
+<h4 id="on-amp-un"><a href="#on-amp-un" class="headerlink" title="on&amp;un"></a>on&amp;un</h4><p><code>on</code>方法也是一个比较重要的方法，它的作用是在当前图表对象上添加一个事件监听，它有两个参数分别是字符串<code>eventName</code>和方法<code>eventLintener</code>，其中<code>eventName</code>表示添加的事件类型，<code>eventLintener</code>是事件触发后的回调函数，这是一个在实际开发中很有用的函数，可以方便我们对图表点击之类的事件进行响应。<br><code>echarts</code>给我们提供的<code>eventName</code>的事件类型包括：</p>
+<ul>
+<li>基础事件<ul>
+<li>refresh 刷新</li>
+<li>restore 还原</li>
+<li>resize 显示空间变化</li>
+<li>click 点击</li>
+<li>dblclick 双击</li>
+<li>hover 悬浮（获取鼠标焦点）</li>
+<li>mouseout 鼠标离开图形</li>
+</ul>
+</li>
+<li>交互逻辑事件<ul>
+<li>dataChanged 数据修改，如拖拽重定向</li>
+<li>dataZoom 数据区域缩放</li>
+<li>dataRange 值域漫游</li>
+<li>dataRangeHoverLink 值域漫游hover</li>
+<li>legendSelected 图例选择</li>
+<li>legendHoverLink 图例hover</li>
+<li>mapSelected 地图区域选择</li>
+<li>pieSelected 饼图区域选择</li>
+<li>magicTypeChanged 动态数据类型切换</li>
+<li>dataViewChanged 数据视图修改</li>
+<li>timelineChanged 时间轴变化</li>
+<li>mapRoam 地图漫游</li>
+</ul>
+</li>
+</ul>
+<p>与<code>on</code>方法对应的还有一个<code>un</code>方法，这个方法是用来解除添加过的事件绑定，只需要传入事件名称<code>eventName</code>即可。</p>
+<h4 id="getDataURL"><a href="#getDataURL" class="headerlink" title="getDataURL"></a>getDataURL</h4><p><code>getDataURL</code>方法是用来获取当前对象的图片格式的，这个方法会返回图片的<code>base64</code>编码，这个编码可以直接用来图片显示，也能直接下载。</p>
+<h4 id="addMarkLine-amp-delMarkLine"><a href="#addMarkLine-amp-delMarkLine" class="headerlink" title="addMarkLine &amp; delMarkLine"></a>addMarkLine &amp; delMarkLine</h4><p><code>addMarkLine</code>可以用于在图表已经绘制完成后向图表添加标记线而不重新刷新图表，<code>delMarkLine</code>则是删除图表上已经存在的标记线</p>
+<h4 id="getOption"><a href="#getOption" class="headerlink" title="getOption"></a>getOption</h4><p><code>getOption</code>用于向一个已经绘制完成的图表获取它的option的克隆，方便在原来图表的基础上修改部分内容，然后重新绘制图表</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/echarts/" rel="tag"># echarts</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/19/echarts介绍及使用（一）/" rel="next" title="echarts介绍及使用（一）">
+                <i class="fa fa-chevron-left"></i> echarts介绍及使用（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/19/Fate GO/" rel="prev" title="Fate Go 抽卡模拟器">
+                Fate Go 抽卡模拟器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Kid the Phantom Thief" />
+          <p class="site-author-name" itemprop="name">Kid the Phantom Thief</p>
+           
+              <p class="site-description motion-element" itemprop="description">Good good study, Day day up!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#属性"><span class="nav-number">1.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#title"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">title</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#toolbox"><span class="nav-number">1.0.0.2.</span> <span class="nav-text">toolbox</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#tooltip"><span class="nav-number">1.0.0.3.</span> <span class="nav-text">tooltip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#legend"><span class="nav-number">1.0.0.4.</span> <span class="nav-text">legend</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dataRange"><span class="nav-number">1.0.0.5.</span> <span class="nav-text">dataRange</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dataZoom"><span class="nav-number">1.0.0.6.</span> <span class="nav-text">dataZoom</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#grid"><span class="nav-number">1.0.0.7.</span> <span class="nav-text">grid</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#xAxis"><span class="nav-number">1.0.0.8.</span> <span class="nav-text">xAxis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yAxis"><span class="nav-number">1.0.0.9.</span> <span class="nav-text">yAxis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#axis"><span class="nav-number">1.0.0.10.</span> <span class="nav-text">axis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#series"><span class="nav-number">1.0.0.11.</span> <span class="nav-text">series</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#itemStyle"><span class="nav-number">1.0.0.12.</span> <span class="nav-text">itemStyle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#textStyle"><span class="nav-number">1.0.0.13.</span> <span class="nav-text">textStyle</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#other"><span class="nav-number">1.0.0.14.</span> <span class="nav-text">other</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法"><span class="nav-number">2.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setOption"><span class="nav-number">2.0.0.1.</span> <span class="nav-text">setOption</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#on-amp-un"><span class="nav-number">2.0.0.2.</span> <span class="nav-text">on&amp;un</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getDataURL"><span class="nav-number">2.0.0.3.</span> <span class="nav-text">getDataURL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#addMarkLine-amp-delMarkLine"><span class="nav-number">2.0.0.4.</span> <span class="nav-text">addMarkLine &amp; delMarkLine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getOption"><span class="nav-number">2.0.0.5.</span> <span class="nav-text">getOption</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kid the Phantom Thief</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

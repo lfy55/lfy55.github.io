@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Javascript,D3," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="业精于勤荒于嬉，行成于思毁于随   说明　　目标：一个单人关系的可视化图表　　实现思路：通过力导向图来实现，存在一个关键点master，其他所有点都仅与它有关，master点居中其他点根据关系权重分布在master点四周，权重不同则与master点距离不同，最终演示效果如下图所示：">
+<meta name="keywords" content="Javascript,D3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="D3力导向图实现人际关系图">
+<meta property="og:url" content="https://github.com/lfy55/2016/11/25/D3力导向图实现人际关系图/index.html">
+<meta property="og:site_name" content="A sanctuary for KID">
+<meta property="og:description" content="业精于勤荒于嬉，行成于思毁于随   说明　　目标：一个单人关系的可视化图表　　实现思路：通过力导向图来实现，存在一个关键点master，其他所有点都仅与它有关，master点居中其他点根据关系权重分布在master点四周，权重不同则与master点距离不同，最终演示效果如下图所示：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/d3/%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%8A%9B%E5%AF%BC%E5%90%91%E5%9B%BE.png">
+<meta property="og:updated_time" content="2018-04-07T04:23:46.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="D3力导向图实现人际关系图">
+<meta name="twitter:description" content="业精于勤荒于嬉，行成于思毁于随   说明　　目标：一个单人关系的可视化图表　　实现思路：通过力导向图来实现，存在一个关键点master，其他所有点都仅与它有关，master点居中其他点根据关系权重分布在master点四周，权重不同则与master点距离不同，最终演示效果如下图所示：">
+<meta name="twitter:image" content="http://odqa8xkhb.bkt.clouddn.com/d3/%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%8A%9B%E5%AF%BC%E5%90%91%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/lfy55/2016/11/25/D3力导向图实现人际关系图/"/>
+
+
+
+
+
+  <title>D3力导向图实现人际关系图 | A sanctuary for KID</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A sanctuary for KID</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">personal blog by sqk</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/lfy55/2016/11/25/D3力导向图实现人际关系图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kid the Phantom Thief">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A sanctuary for KID">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">D3力导向图实现人际关系图</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-11-25T00:00:00+08:00">
+                2016-11-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/D3/" itemprop="url" rel="index">
+                    <span itemprop="name">D3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>业精于勤荒于嬉，行成于思毁于随</p>
+</blockquote>
+<hr>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>　　目标：一个单人关系的可视化图表<br>　　实现思路：通过力导向图来实现，存在一个关键点<code>master</code>，其他所有点都仅与它有关，<code>master</code>点居中其他点根据关系权重分布在<code>master</code>点四周，权重不同则与<code>master</code>点距离不同，最终演示效果如下图所示：<br><img src="http://odqa8xkhb.bkt.clouddn.com/d3/%E4%BA%BA%E7%89%A9%E5%85%B3%E7%B3%BB%E5%8A%9B%E5%AF%BC%E5%90%91%E5%9B%BE.png" alt="力导向图示意图"></p>
+<a id="more"></a>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="获取数据"><a href="#获取数据" class="headerlink" title="获取数据"></a>获取数据</h2><p>　　首先我们先制造数据：<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">var</span> dataset=&#123;</span><br><span class="line">    nodes:[<span class="comment">//节点</span></span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"master"</span>,<span class="attr">values</span>:<span class="number">12</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"das"</span>,<span class="attr">values</span>:<span class="number">25</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"fd"</span>,<span class="attr">values</span>:<span class="number">39</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"dsadsa"</span>,<span class="attr">values</span>:<span class="number">45</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"htr"</span>,<span class="attr">values</span>:<span class="number">25</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"vbcx"</span>,<span class="attr">values</span>:<span class="number">24</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"ht"</span>,<span class="attr">values</span>:<span class="number">90</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"nbv"</span>,<span class="attr">values</span>:<span class="number">80</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"yrt"</span>,<span class="attr">values</span>:<span class="number">68</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"jff"</span>,<span class="attr">values</span>:<span class="number">63</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"nbv"</span>,<span class="attr">values</span>:<span class="number">25</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"jyt"</span>,<span class="attr">values</span>:<span class="number">45</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"mb"</span>,<span class="attr">values</span>:<span class="number">35</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"jyt"</span>,<span class="attr">values</span>:<span class="number">78</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"gtre"</span>,<span class="attr">values</span>:<span class="number">79</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"bvc"</span>,<span class="attr">values</span>:<span class="number">25</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"mjh"</span>,<span class="attr">values</span>:<span class="number">58</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"ughf"</span>,<span class="attr">values</span>:<span class="number">86</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"juy"</span>,<span class="attr">values</span>:<span class="number">79</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"mjh"</span>,<span class="attr">values</span>:<span class="number">53</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">name</span>:<span class="string">"njm"</span>,<span class="attr">values</span>:<span class="number">52</span>&#125;,</span><br><span class="line">    ],</span><br><span class="line">    edges:[<span class="comment">//边</span></span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">1</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">2</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">3</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">4</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">5</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">6</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">7</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">8</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">9</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">10</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">11</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">12</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">13</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">14</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">15</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">16</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">17</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">18</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">19</span>&#125;,</span><br><span class="line">        &#123; <span class="attr">source</span>:<span class="number">0</span>,<span class="attr">target</span>:<span class="number">20</span>&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>  　　这是<code>D3</code>力导向图布局接受的数据格式，其中<code>nodes</code>代表点的数据，<code>name</code>字段为<code>master</code>的点为中心点，<code>edges</code>代表边的数据，<code>source</code>代表线的起点，<code>target</code>代表线的终点。（边对象的source和target字段必须存在）</p>
+<h2 id="力布局"><a href="#力布局" class="headerlink" title="力布局"></a>力布局</h2><p>　　接下来就是添加力导向图布局，将我们的数据转换成适合D3生成力导向图的对象数组：<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> force=d3.layout.force()</span><br><span class="line">    .nodes(dataset.nodes)<span class="comment">//加载节点数据</span></span><br><span class="line">    .links(dataset.edges)<span class="comment">//加载边数据</span></span><br><span class="line">    .size([w,h])<span class="comment">//设置有效空间的大小</span></span><br><span class="line">    .linkDistance(<span class="function"><span class="keyword">function</span>(<span class="params">d</span>) </span>&#123;<span class="comment">// 根据权重不同连接线段的长度也不同</span></span><br><span class="line">        <span class="keyword">if</span>(d.target.values &lt; <span class="number">33</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">60</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(d.target.values &gt; <span class="number">33</span> &amp;&amp; d.target.values &lt; <span class="number">67</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">120</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(d.target.values &gt; <span class="number">67</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">180</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)<span class="comment">//连线的长度</span></span><br><span class="line">    .friction(<span class="number">0.6</span>) <span class="comment">// 摩擦阻力，数值越大阻力越小，范围[0.1]，默认值为0.9</span></span><br><span class="line">    .charge(<span class="number">-100</span>)<span class="comment">//负电荷量，相互排斥设置的负值越大越排斥</span></span><br><span class="line">    .start();<span class="comment">//设置生效</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="画线"><a href="#画线" class="headerlink" title="画线"></a>画线</h2><p>　　创建作为连线的svg的<code>line</code>元素<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> edges=svg.selectAll(<span class="string">"line"</span>)</span><br><span class="line">    .data(dataset.edges)</span><br><span class="line">    .enter()</span><br><span class="line">    .append(<span class="string">"line"</span>)</span><br><span class="line">    .style(<span class="string">"stroke"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;<span class="comment">//  设置线的颜色</span></span><br><span class="line">        <span class="keyword">return</span> colors(d.color);</span><br><span class="line">    &#125;)</span><br><span class="line">    .style(<span class="string">"opacity"</span>, <span class="number">0.5</span>)</span><br><span class="line">    .style(<span class="string">"stroke-width"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d,i</span>)</span>&#123;<span class="comment">//设置线的宽度</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="画点"><a href="#画点" class="headerlink" title="画点"></a>画点</h2><p>　　创建作为点的svg的<code>circle</code>元素<br>  <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nodes=svg.selectAll(<span class="string">"circle"</span>)</span><br><span class="line">  .data(dataset.nodes)</span><br><span class="line">  .enter()</span><br><span class="line">  .append(<span class="string">"circle"</span>)</span><br><span class="line">  .attr(<span class="string">"r"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;<span class="comment">//设置圆点的半径，master为10，其他为5</span></span><br><span class="line">      <span class="keyword">if</span>(d.name == <span class="string">"master"</span>) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="number">10</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">  &#125;)</span><br><span class="line">  .style(<span class="string">"fill"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> colors(d.weight*d.weight*d.weight);</span><br><span class="line">  &#125;)</span><br><span class="line">  .call(force.drag);<span class="comment">//可以拖动</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="增加tick事件"><a href="#增加tick事件" class="headerlink" title="增加tick事件"></a>增加tick事件</h2><p> 　　<code>tick</code>事件在D3中代表运动的每一步，与它类似的还有<code>start：刚开始运动</code>，<code>end：运动停止</code>，因此一般只要设置tick事件的监听器即可。<br>   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">force.on(<span class="string">"tick"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> <span class="comment">//边</span></span><br><span class="line"> edges.attr(<span class="string">"x1"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  d.source.x;</span><br><span class="line"> &#125;)</span><br><span class="line"> .attr(<span class="string">"y1"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  d.source.y;</span><br><span class="line"> &#125;)</span><br><span class="line"> .attr(<span class="string">"x2"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  d.target.x;</span><br><span class="line"> &#125;)</span><br><span class="line"> .attr(<span class="string">"y2"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span>  d.target.y;</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line"> <span class="comment">//节点</span></span><br><span class="line"> nodes.attr(<span class="string">"cx"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> d.x;</span><br><span class="line"> &#125;)</span><br><span class="line"> .attr(<span class="string">"cy"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">     <span class="keyword">return</span> d.y;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="控制中心点不动"><a href="#控制中心点不动" class="headerlink" title="控制中心点不动"></a>控制中心点不动</h2><p>　　　我们为了做到控制中心点不动需要在每次计算位置是重置中心点的坐标为[w/2,h/2]，所以我们在tick事件中添加以下代码：<br>   <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataset.nodes[<span class="number">0</span>].x = w/<span class="number">2</span>;</span><br><span class="line"> dataset.nodes[<span class="number">0</span>].y = h/<span class="number">2</span>;</span><br></pre></td></tr></table></figure></p>
+<p>   　　这样我们就能保证无论其他点如何移动，中心点始终在svg页面中心保持不动。</p>
+<h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1> <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line"> &lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">    &lt;title&gt;testD3<span class="number">-22</span>-force.html&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">    &lt;script src="https:/</span><span class="regexp">/cdn.bootcss.com/</span>d3/<span class="number">3.5</span><span class="number">.17</span>/d3.min.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">    &lt;style type="</span>text/css<span class="string">"&gt;</span></span><br><span class="line"><span class="string">    svg &#123;</span></span><br><span class="line"><span class="string">        border: 1px solid red;</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">    &lt;/style&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">&lt;script type="</span>text/javascript<span class="string">"&gt;</span></span><br><span class="line"><span class="string">var h=500;</span></span><br><span class="line"><span class="string">var w=500;</span></span><br><span class="line"><span class="string">// 颜色函数</span></span><br><span class="line"><span class="string">var colors=d3.scale.category20()//创建序数比例尺和包括20中颜色的输出范围</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//(1)定义节点和联系对象数组</span></span><br><span class="line"><span class="string">var dataset=&#123;</span></span><br><span class="line"><span class="string">    nodes:[//节点</span></span><br><span class="line"><span class="string">        &#123;name:"</span>master<span class="string">",values:12&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>das<span class="string">",values:25&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>fd<span class="string">",values:39&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>dsadsa<span class="string">",values:45&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>htr<span class="string">",values:25&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>vbcx<span class="string">",values:24&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>ht<span class="string">",values:90&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>nbv<span class="string">",values:80&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>yrt<span class="string">",values:68&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>jff<span class="string">",values:63&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>nbv<span class="string">",values:25&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>jyt<span class="string">",values:45&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>mb<span class="string">",values:35&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>jyt<span class="string">",values:78&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>gtre<span class="string">",values:79&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>bvc<span class="string">",values:25&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>mjh<span class="string">",values:58&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>ughf<span class="string">",values:86&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>juy<span class="string">",values:79&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>mjh<span class="string">",values:53&#125;,</span></span><br><span class="line"><span class="string">        &#123;name:"</span>njm<span class="string">",values:52&#125;,</span></span><br><span class="line"><span class="string">    ],</span></span><br><span class="line"><span class="string">    edges:[//边</span></span><br><span class="line"><span class="string">        &#123; source:0,target:1&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:2&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:3&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:4&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:5&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:6&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:7&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:8&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:9&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:10&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:11&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:12&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:13&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:14&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:15&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:16&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:17&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:18&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:19&#125;,</span></span><br><span class="line"><span class="string">        &#123; source:0,target:20&#125;</span></span><br><span class="line"><span class="string">    ]</span></span><br><span class="line"><span class="string">&#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//(2)转化数据为适合生成力导向图的对象数组</span></span><br><span class="line"><span class="string">var force=d3.layout.force()</span></span><br><span class="line"><span class="string">    .nodes(dataset.nodes)//加载节点数据</span></span><br><span class="line"><span class="string">    .links(dataset.edges)//加载边数据</span></span><br><span class="line"><span class="string">    .size([w,h])//设置有效空间的大小</span></span><br><span class="line"><span class="string">    .linkDistance(function(d) &#123;// 根据权重不同连接线段的长度也不同</span></span><br><span class="line"><span class="string">        if(d.target.values &lt; 33) &#123;</span></span><br><span class="line"><span class="string">            return 60;</span></span><br><span class="line"><span class="string">        &#125; else if(d.target.values &gt; 33 &amp;&amp; d.target.values &lt; 67) &#123;</span></span><br><span class="line"><span class="string">            return 120;</span></span><br><span class="line"><span class="string">        &#125; else if(d.target.values &gt; 67) &#123;</span></span><br><span class="line"><span class="string">            return 180;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">    &#125;)//连线的长度</span></span><br><span class="line"><span class="string">    .friction(0.6) // 摩擦阻力，数值越大阻力越小，范围[0.1]，默认值为0.9</span></span><br><span class="line"><span class="string">    .charge(-100)//负电荷量，相互排斥设置的负值越大越排斥</span></span><br><span class="line"><span class="string">    .start();//设置生效</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">console.log(dataset);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">var svg=d3.select("</span>body<span class="string">")</span></span><br><span class="line"><span class="string">    .append("</span>svg<span class="string">")</span></span><br><span class="line"><span class="string">    .attr("</span>width<span class="string">",w)</span></span><br><span class="line"><span class="string">    .attr("</span>height<span class="string">",h);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//(3)创建作为连线的svg直线</span></span><br><span class="line"><span class="string">var edges=svg.selectAll("</span>line<span class="string">")</span></span><br><span class="line"><span class="string">    .data(dataset.edges)</span></span><br><span class="line"><span class="string">    .enter()</span></span><br><span class="line"><span class="string">    .append("</span>line<span class="string">")</span></span><br><span class="line"><span class="string">    .style("</span>stroke<span class="string">",function(d)&#123;//  设置线的颜色</span></span><br><span class="line"><span class="string">        return colors(d.color);</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .style("</span>opacity<span class="string">", 0.5)</span></span><br><span class="line"><span class="string">    .style("</span>stroke-width<span class="string">",function(d,i)&#123;//设置线的宽度</span></span><br><span class="line"><span class="string">        return 1;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//(4) 创建作为连线的svg圆形</span></span><br><span class="line"><span class="string">var nodes=svg.selectAll("</span>circle<span class="string">")</span></span><br><span class="line"><span class="string">    .data(dataset.nodes)</span></span><br><span class="line"><span class="string">    .enter()</span></span><br><span class="line"><span class="string">    .append("</span>circle<span class="string">")</span></span><br><span class="line"><span class="string">    .attr("</span>r<span class="string">",function(d)&#123;//设置圆点的半径，master为10，其他为5</span></span><br><span class="line"><span class="string">        if(d.name == "</span>master<span class="string">") &#123;</span></span><br><span class="line"><span class="string">            return 10;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        return 5;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .style("</span>fill<span class="string">",function(d)&#123;</span></span><br><span class="line"><span class="string">        return colors(d.weight*d.weight*d.weight);</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .call(force.drag);//可以拖动</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> //(5)打点更新，没有的话就显示不出来了</span></span><br><span class="line"><span class="string">force.on("</span>tick<span class="string">",function()&#123;</span></span><br><span class="line"><span class="string">    console.log("</span>tick<span class="string">");</span></span><br><span class="line"><span class="string">    dataset.nodes[0].x = w/2;</span></span><br><span class="line"><span class="string">    dataset.nodes[0].y = h/2;</span></span><br><span class="line"><span class="string">    //边</span></span><br><span class="line"><span class="string">    edges.attr("</span>x1<span class="string">",function(d)&#123;</span></span><br><span class="line"><span class="string">        return  d.source.x;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .attr("</span>y1<span class="string">",function(d)&#123;</span></span><br><span class="line"><span class="string">        return  d.source.y;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .attr("</span>x2<span class="string">",function(d)&#123;</span></span><br><span class="line"><span class="string">        return  d.target.x;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .attr("</span>y2<span class="string">",function(d)&#123;</span></span><br><span class="line"><span class="string">        return  d.target.y;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    //节点</span></span><br><span class="line"><span class="string">    nodes.attr("</span>cx<span class="string">",function(d)&#123;</span></span><br><span class="line"><span class="string">        return d.x;</span></span><br><span class="line"><span class="string">    &#125;)</span></span><br><span class="line"><span class="string">    .attr("</span>cy<span class="string">",function(d)&#123;</span></span><br><span class="line"><span class="string">        return d.y;</span></span><br><span class="line"><span class="string">    &#125;);</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#125;)</span></span><br><span class="line"><span class="string">&lt;/script&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/D3/" rel="tag"># D3</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/19/Fate GO/" rel="next" title="Fate Go 抽卡模拟器">
+                <i class="fa fa-chevron-left"></i> Fate Go 抽卡模拟器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/26/D3力导向图实现人际关系图-添加鼠标交互/" rel="prev" title="D3力导向图实现人际关系图-添加鼠标交互">
+                D3力导向图实现人际关系图-添加鼠标交互 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Kid the Phantom Thief" />
+          <p class="site-author-name" itemprop="name">Kid the Phantom Thief</p>
+           
+              <p class="site-description motion-element" itemprop="description">Good good study, Day day up!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#获取数据"><span class="nav-number">2.1.</span> <span class="nav-text">获取数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#力布局"><span class="nav-number">2.2.</span> <span class="nav-text">力布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#画线"><span class="nav-number">2.3.</span> <span class="nav-text">画线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#画点"><span class="nav-number">2.4.</span> <span class="nav-text">画点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增加tick事件"><span class="nav-number">2.5.</span> <span class="nav-text">增加tick事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制中心点不动"><span class="nav-number">2.6.</span> <span class="nav-text">控制中心点不动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#完整代码"><span class="nav-number">3.</span> <span class="nav-text">完整代码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kid the Phantom Thief</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

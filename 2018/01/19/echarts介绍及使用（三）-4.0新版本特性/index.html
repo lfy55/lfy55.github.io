@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="echarts," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="说不定我一生涓滴意念,侥幸汇成河  ——李宗盛   说明&amp;emsp;&amp;emsp;时隔一年ECharts更新了4.0版本，在我第三天写这篇日志时又迅速放出了4.0.1,4.0.2，也是emmmmmmm。 &amp;emsp;&amp;emsp;也是前段时间年底忙于各种事情，已经快一个月没敲代码了，手都不会打字，以后争取再忙都要敲代码，废话不多说了，看一下echarts的4.0。">
+<meta name="keywords" content="echarts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="echarts介绍及使用（三）-4.0新版本特性">
+<meta property="og:url" content="https://github.com/lfy55/2018/01/19/echarts介绍及使用（三）-4.0新版本特性/index.html">
+<meta property="og:site_name" content="A sanctuary for KID">
+<meta property="og:description" content="说不定我一生涓滴意念,侥幸汇成河  ——李宗盛   说明&amp;emsp;&amp;emsp;时隔一年ECharts更新了4.0版本，在我第三天写这篇日志时又迅速放出了4.0.1,4.0.2，也是emmmmmmm。 &amp;emsp;&amp;emsp;也是前段时间年底忙于各种事情，已经快一个月没敲代码了，手都不会打字，以后争取再忙都要敲代码，废话不多说了，看一下echarts的4.0。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/echarts/echarts.4.png">
+<meta property="og:updated_time" content="2018-04-07T04:22:42.200Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="echarts介绍及使用（三）-4.0新版本特性">
+<meta name="twitter:description" content="说不定我一生涓滴意念,侥幸汇成河  ——李宗盛   说明&amp;emsp;&amp;emsp;时隔一年ECharts更新了4.0版本，在我第三天写这篇日志时又迅速放出了4.0.1,4.0.2，也是emmmmmmm。 &amp;emsp;&amp;emsp;也是前段时间年底忙于各种事情，已经快一个月没敲代码了，手都不会打字，以后争取再忙都要敲代码，废话不多说了，看一下echarts的4.0。">
+<meta name="twitter:image" content="http://odqa8xkhb.bkt.clouddn.com/echarts/echarts.4.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/lfy55/2018/01/19/echarts介绍及使用（三）-4.0新版本特性/"/>
+
+
+
+
+
+  <title>echarts介绍及使用（三）-4.0新版本特性 | A sanctuary for KID</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A sanctuary for KID</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">personal blog by sqk</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/lfy55/2018/01/19/echarts介绍及使用（三）-4.0新版本特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kid the Phantom Thief">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A sanctuary for KID">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">echarts介绍及使用（三）-4.0新版本特性</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-19T00:00:00+08:00">
+                2018-01-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/可视化/" itemprop="url" rel="index">
+                    <span itemprop="name">可视化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>说不定我一生涓滴意念,侥幸汇成河  ——李宗盛</p>
+</blockquote>
+<hr>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>&emsp;&emsp;时隔一年<a href="https://echarts.baidu.com" target="_blank" rel="noopener">ECharts</a>更新了4.0版本，在我第三天写这篇日志时又迅速放出了4.0.1,4.0.2，也是emmmmmmm。</p>
+<p>&emsp;&emsp;也是前段时间年底忙于各种事情，已经快一个月没敲代码了，手都不会打字，以后争取再忙都要敲代码，废话不多说了，看一下echarts的4.0。</p>
+<a id="more"></a>
+<h1 id="更新内容"><a href="#更新内容" class="headerlink" title="更新内容"></a>更新内容</h1><p>我从echarts官网<a href="http://echarts.baidu.com/changelog.html#v4-0-0" target="_blank" rel="noopener">http://echarts.baidu.com/changelog.html#v4-0-0</a> 截了一张图，看一下4.0究竟干了些什么：</p>
+<p><img src="http://odqa8xkhb.bkt.clouddn.com/echarts/echarts.4.png" alt=""></p>
+<p>主要的更新有： </p>
+<ul>
+<li>支持SVG渲染</li>
+<li>新增旭日图</li>
+<li><strong>新增dataset组件</strong></li>
+<li>支持无障碍富互联网应用规范集</li>
+</ul>
+<p>我主要关注的内容有两个SVG渲染和dataset，因为dataset的原因我曾经去看过antv的<a href="https://antv.alipay.com/zh-cn/g2/3.x/index.html" target="_blank" rel="noopener">g2</a>，g2存专门用来处理数据的dataset，可以对数据进行更好的处理和图表联动，下面我将详细介绍一下这两个东西。</p>
+<h1 id="SVG渲染"><a href="#SVG渲染" class="headerlink" title="SVG渲染"></a>SVG渲染</h1><p>这个东西，根据官网自己的说法是在移动端少量数据时性能会比Canvas好，但是我基本不在移动端使用echarts，所以就简单尝试了一下，看看以后是否有在PC端使用的情况。</p>
+<p></p><p data-height="565" data-theme-id="0" data-slug-hash="mpaPNO" data-default-tab="js,result" data-user="KIDlfy" data-embed-version="2" data-pen-title="mpaPNO" class="codepen">See the Pen <a href="https://codepen.io/KIDlfy/pen/mpaPNO/" target="_blank" rel="noopener">mpaPNO</a> by KID (<a href="https://codepen.io/KIDlfy" target="_blank" rel="noopener">@KIDlfy</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>其实只从页面来看并不能区分SVG渲染或者是Canvas渲染，只是对页面性能有些影响，使用方式就是在图表初始化时选中渲染方法：<code>var chart = echarts.init(document.getElementById(&#39;charts&#39;), null, {renderer: &#39;svg&#39;})</code>。</p>
+<h1 id="dataset组件"><a href="#dataset组件" class="headerlink" title="dataset组件"></a>dataset组件</h1><p>&emsp;&emsp;用于单独的数据集声明,从而数据可以单独管理，可以被多个图表复用，多用于图表联动。echarts官网对于数据集的说法是：</p>
+<ul>
+<li>数据和其他配置可以被分离开来，使用者相对便于进行单独管理，也省去了一些数据处理的步骤。</li>
+<li>数据可以被多个系列或者组件复用，对于大数据，不必为每个系列创建一份。</li>
+<li>更重要的是，有了 dataset 后，能够贴近这样的数据可视化常见思维方式：基于数据（dataset 组件来提供数据），指定数据到视觉的映射（由 encode 属性来指定映射），形成图表。</li>
+<li>支持更多的数据的常用格式，例如二维数组、对象数组等，一定程度上避免使用者为了数据格式而进行转换。</li>
+</ul>
+<p>&emsp;&emsp;这些已经大致总结了dataset的特点，一个简单的例子：</p>
+<p></p><p data-height="592" data-theme-id="0" data-slug-hash="xpmEVd" data-default-tab="js,result" data-user="KIDlfy" data-embed-version="2" data-pen-title="echarts dataset" class="codepen">See the Pen <a href="https://codepen.io/KIDlfy/pen/xpmEVd/" target="_blank" rel="noopener">echarts dataset</a> by KID (<a href="https://codepen.io/KIDlfy" target="_blank" rel="noopener">@KIDlfy</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.</p><p></p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+
+<p>用法：</p>
+<ul>
+<li><code>series.seriesLayoutBy</code>设置是 dataset 的行还是列映射到 series 上可选值有：<code>column</code>(默认值),<code>row</code></li>
+<li><code>encode</code>来配置数据<ul>
+<li>维度：当我们把系列（series）对应到“列”的时候，那么每一列就称为一个“维度（dimension）”，而每一行称为数据项（item）。反之，如果我们把系列（series）对应到表行，那么每一行就是“维度（dimension）”，每一列就是数据项（item）</li>
+<li>维度的定义：可以使用单独的 dataset.dimensions 或者 series.dimensions 来定义，这样可以同时指定维度名，和维度的类型（dimension type）</li>
+<li>维度类型（dimension type）可以取这些值：<ul>
+<li>‘number’: 默认，表示普通数据。</li>
+<li>‘ordinal’: 对于类目、文本这些 string 类型的数据，如果需要能在数轴上使用，须是 ‘ordinal’ 类型。ECharts 默认会自动判断这个类型。但是自动判断也是不可能很完备的，所以使用者也可以手动强制指定。</li>
+<li>‘time’: 表示时间数据。设置成 ‘time’ 则能支持自动解析数据成时间戳（timestamp），比如该维度的数据是 ‘2017-05-10’，会自动被解析。时间类型的支持参见 data。</li>
+<li>‘float’: 如果设置成 float，在存储时候会使用 TypedArray，对性能优化有好处。</li>
+<li>‘int’: 如果设置成 float，在存储时候会使用 TypedArray，对性能优化有好处。</li>
+</ul>
+</li>
+<li>x: 将什么维度映射到X轴上，可以指定一个（名称：字符串，序号：number）或者一组数据（数组）</li>
+<li>y: 将什么维度映射到Y轴上，可以指定一个（名称：字符串，序号：number）或者一组数据（数组）</li>
+<li>tooltip：将什么数据映射到tooltip展示上</li>
+<li>seriesName: 将什么数据映射到序列名称</li>
+</ul>
+</li>
+</ul>
+<p>暂时就研究了这么多，等待后续更新</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/echarts/" rel="tag"># echarts</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/17/js 跨域相关内容/" rel="next" title="js 跨域相关内容">
+                <i class="fa fa-chevron-left"></i> js 跨域相关内容
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Kid the Phantom Thief" />
+          <p class="site-author-name" itemprop="name">Kid the Phantom Thief</p>
+           
+              <p class="site-description motion-element" itemprop="description">Good good study, Day day up!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新内容"><span class="nav-number">2.</span> <span class="nav-text">更新内容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SVG渲染"><span class="nav-number">3.</span> <span class="nav-text">SVG渲染</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#dataset组件"><span class="nav-number">4.</span> <span class="nav-text">dataset组件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kid the Phantom Thief</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

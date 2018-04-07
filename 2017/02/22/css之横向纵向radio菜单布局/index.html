@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css,HTML," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="学问是经验的积累，才能是刻苦的忍耐   说明　　使用css实现radio的横向纵向布局菜单单选以及inline-block样式引起的空白解决方案">
+<meta name="keywords" content="css,HTML">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css之横向纵向radio菜单布局">
+<meta property="og:url" content="https://github.com/lfy55/2017/02/22/css之横向纵向radio菜单布局/index.html">
+<meta property="og:site_name" content="A sanctuary for KID">
+<meta property="og:description" content="学问是经验的积累，才能是刻苦的忍耐   说明　　使用css实现radio的横向纵向布局菜单单选以及inline-block样式引起的空白解决方案">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/horizontal+spack.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/horizontal.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/console.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/vertical.png">
+<meta property="og:updated_time" content="2018-04-07T04:23:35.951Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css之横向纵向radio菜单布局">
+<meta name="twitter:description" content="学问是经验的积累，才能是刻苦的忍耐   说明　　使用css实现radio的横向纵向布局菜单单选以及inline-block样式引起的空白解决方案">
+<meta name="twitter:image" content="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/horizontal+spack.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/lfy55/2017/02/22/css之横向纵向radio菜单布局/"/>
+
+
+
+
+
+  <title>css之横向纵向radio菜单布局 | A sanctuary for KID</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A sanctuary for KID</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">personal blog by sqk</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/lfy55/2017/02/22/css之横向纵向radio菜单布局/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kid the Phantom Thief">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A sanctuary for KID">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css之横向纵向radio菜单布局</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-22T00:00:00+08:00">
+                2017-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>学问是经验的积累，才能是刻苦的忍耐</p>
+</blockquote>
+<hr>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>　　使用css实现radio的横向纵向布局菜单单选以及inline-block样式引起的空白解决方案</p>
+<a id="more"></a>
+<h1 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h1><h2 id="横向"><a href="#横向" class="headerlink" title="横向"></a>横向</h2><p>不多说，贴代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;menu&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; name=&quot;myColor&quot; id=&quot;aaaa&quot; checked=&quot;checked&quot;&gt;</span><br><span class="line">    &lt;label class=&quot;menu-label&quot; for=&quot;aaaa&quot;&gt;</span><br><span class="line">        aaaa&lt;/label&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; id=&quot;bbbb&quot; name=&quot;myColor&quot;&gt;&lt;label class=&quot;menu-label&quot; for=&quot;bbbb&quot;&gt;</span><br><span class="line">        bbbb&lt;/label&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; id=&quot;vvvv&quot; name=&quot;myColor&quot;&gt;&lt;label class=&quot;menu-label&quot; for=&quot;vvvv&quot;&gt;</span><br><span class="line">            vvvv&lt;/label&gt;</span><br><span class="line">    &lt;input type=&quot;radio&quot; id=&quot;dddd&quot; name=&quot;myColor&quot;&gt;</span><br><span class="line">    &lt;label class=&quot;menu-label&quot; for=&quot;dddd&quot;&gt;dddd&lt;/label&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>然后是其<code>css</code>样式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">style</span>&gt;</span><br><span class="line">    <span class="selector-tag">input</span> &#123;</span><br><span class="line">        <span class="attribute">display</span>: none;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">0px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">0px</span>;</span><br><span class="line">        <span class="attribute">margin</span>: <span class="number">0px</span>;</span><br><span class="line">        <span class="attribute">padding</span>: <span class="number">0px</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">label</span> &#123;</span><br><span class="line">        <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">        <span class="attribute">height</span>: <span class="number">30px</span>;</span><br><span class="line">        <span class="comment">/*margin-right: -0.25em;  */</span><span class="comment">/* 不是完全适应，不推荐 */</span></span><br><span class="line">        <span class="attribute">display</span>: inline-block;</span><br><span class="line">        <span class="attribute">line-height</span>: <span class="number">30px</span>;</span><br><span class="line">        <span class="attribute">text-align</span>: center;</span><br><span class="line">        <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#054ffd</span>;</span><br><span class="line">        <span class="attribute">cursor</span>: pointer;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="selector-tag">input</span><span class="selector-pseudo">:checked+label</span> &#123;</span><br><span class="line">        <span class="attribute">background</span>: <span class="number">#ddd</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>显示效果如下图:</p>
+<p><img src="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/horizontal+spack.png" alt=""></p>
+<p>很明显可以看出每两个label中都存在一些空隙，在dom元素中又看不到这些空隙，为了消除这些空隙，解决方法有三种：</p>
+<ol>
+<li>在label标签中设置margin-right:-0.25em;</li>
+<li>将lebel标签和input标签中的回车去除，即标签间不换行</li>
+<li>使用jquery从其父元素中将其同级且nodeType为3的元素删除，具体代见下文js<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">'#menu'</span>).contents().filter(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.nodeType === <span class="number">3</span>;</span><br><span class="line">&#125;).remove();</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>非常不推荐使用方法一，当自己书写html页面时可以使用方法二，方法三使用起来也比较方便，同时我们可以通过jquery看一下这个空格到底是什么，<br>首先我们使用方法三，然后在filter函数中增加一句<code>console.log(this)</code>，这时候页面效果如图：</p>
+<p><img src="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/horizontal.png" alt=""></p>
+<p>这时候控制台输出如下：</p>
+<p><img src="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/console.png" alt=""></p>
+<p>可以看出来这些空格在控制台输出中也是一些空格，它的<code>nodeType</code>等于3，我们只需要将它们删掉就行了</p>
+<h2 id="多行"><a href="#多行" class="headerlink" title="多行"></a>多行</h2><p>只需要将<code>label</code>标签的样式改为如下格式即可：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">label</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">    <span class="attribute">line-height</span>: <span class="number">30px</span>;</span><br><span class="line">    <span class="attribute">text-align</span>: center;</span><br><span class="line">    <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#054ffd</span>;</span><br><span class="line">    <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这时显示效果如下图：</p>
+<p><img src="http://odqa8xkhb.bkt.clouddn.com/cssRadioMenu/vertical.png" alt=""></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>以前使用绝对定位方式来做这种效果，这样对元素的个数等有很大的限制，现在换成这种方式，暂时还没有发现存在有什么问题，发现了会更新的。。。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"># css</a>
+          
+            <a href="/tags/HTML/" rel="tag"># HTML</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/02/07/node+angular系列（四） - 学习Angular/" rel="next" title="node+angular系列（四） - 学习Angular">
+                <i class="fa fa-chevron-left"></i> node+angular系列（四） - 学习Angular
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/08/前端小tips/" rel="prev" title="前端小tips">
+                前端小tips <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Kid the Phantom Thief" />
+          <p class="site-author-name" itemprop="name">Kid the Phantom Thief</p>
+           
+              <p class="site-description motion-element" itemprop="description">Good good study, Day day up!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#做法"><span class="nav-number">2.</span> <span class="nav-text">做法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#横向"><span class="nav-number">2.1.</span> <span class="nav-text">横向</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多行"><span class="nav-number">2.2.</span> <span class="nav-text">多行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kid the Phantom Thief</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

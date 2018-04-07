@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="D3,echarts,highcharts," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="秋风萧瑟 洪波涌起   简介&amp;nbsp;&amp;nbsp;ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的Canvas类库ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。 &amp;nbsp;&amp;nbsp;目前由百度Echarts">
+<meta name="keywords" content="D3,echarts,highcharts">
+<meta property="og:type" content="article">
+<meta property="og:title" content="echarts介绍及使用（一）">
+<meta property="og:url" content="https://github.com/lfy55/2016/09/19/echarts介绍及使用（一）/index.html">
+<meta property="og:site_name" content="A sanctuary for KID">
+<meta property="og:description" content="秋风萧瑟 洪波涌起   简介&amp;nbsp;&amp;nbsp;ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的Canvas类库ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。 &amp;nbsp;&amp;nbsp;目前由百度Echarts">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_line.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_bar.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_scatter.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_k.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_pie.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_radar.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_chord.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_force.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_map.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_heatmap.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_gauge.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_funnel.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_Event%20River.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_treemap.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_venn.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_tree.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_wordCloud.png">
+<meta property="og:image" content="http://odqa8xkhb.bkt.clouddn.com/bar_1.png">
+<meta property="og:updated_time" content="2018-04-07T04:24:00.222Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="echarts介绍及使用（一）">
+<meta name="twitter:description" content="秋风萧瑟 洪波涌起   简介&amp;nbsp;&amp;nbsp;ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的Canvas类库ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。 &amp;nbsp;&amp;nbsp;目前由百度Echarts">
+<meta name="twitter:image" content="http://odqa8xkhb.bkt.clouddn.com/example_echarts_line.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/lfy55/2016/09/19/echarts介绍及使用（一）/"/>
+
+
+
+
+
+  <title>echarts介绍及使用（一） | A sanctuary for KID</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A sanctuary for KID</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">personal blog by sqk</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/lfy55/2016/09/19/echarts介绍及使用（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kid the Phantom Thief">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A sanctuary for KID">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">echarts介绍及使用（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-19T00:00:00+08:00">
+                2016-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/other/" itemprop="url" rel="index">
+                    <span itemprop="name">other</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>秋风萧瑟 洪波涌起</p>
+</blockquote>
+<hr>
+<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>&nbsp;&nbsp;<a href="https://github.com/ecomfe/echarts">ECharts</a>，一个纯 <code>Javascript</code> 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的Canvas类库<code>ZRender</code>，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。</p>
+<p>&nbsp;&nbsp;目前由百度Echarts团队维护，在github社区开源，社区地址为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/ecomfe/echarts</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<hr>
+<h1 id="同类对比"><a href="#同类对比" class="headerlink" title="同类对比"></a>同类对比</h1><p>&nbsp;&nbsp;我所了解的可视化图表工具主要有三个<code>echarts</code>,<code>highcharts</code>,<code>D3</code>。他们都能对数据进行可视化操作，但是他们三者又各有不同，三者关系如下：</p>
+<ul>
+<li>echarts我们已经在上面介绍过了</li>
+<li>Highcharts 是一个用纯 JavaScript 编写的一个图表库， 能够很简单便捷的在 Web 网站或是 Web 应用程序添加有交互性的图表，并且免费提供给个人学习、个人网站和非商业用途使用</li>
+<li>D3(Data-Driven Documents)，顾名思义是一种数据驱动文档的JavaScript的函数库，它允许用户绑定任意数据到DOM，然后根据数据来操作文档，创建可交互式的图表</li>
+</ul>
+<p>&nbsp;&nbsp;从上图我们可以看出三个图既有相似的地方又有不同之处：</p>
+<ul>
+<li>三个工具都是基于<code>JavaScript</code>的函数库，都是用于数据可视化的工具</li>
+<li><code>echarts</code>和<code>highcharts</code>都是一种类似于配置选项自动生成图表的可视化工具（下文会详细说明），而<code>D3</code>则需要开发人员使用数据操作DOM进行图表的绘制</li>
+<li><code>echarts</code>和<code>D3</code>都是完全开源的，而<code>highcharts</code>是一种商务软件，个人和非盈利项目免费，盈利项目收费并提供技术支持，而且<code>echarts</code>和<code>D3</code>都可以使用标准Geojson格式的地图数据进行地图类图表的绘制，而<code>highcharts</code>则需要使用其另一款收费软件<code>Highmaps</code>来进行地图相关的绘制</li>
+<li><code>highcharts</code>和<code>D3</code>都是基于SVG的图表可视化工具，<code>echarts</code>则是基于canvas生成图表</li>
+</ul>
+<hr>
+<h1 id="echarts的使用介绍和内部处理流程分析"><a href="#echarts的使用介绍和内部处理流程分析" class="headerlink" title="echarts的使用介绍和内部处理流程分析"></a>echarts的使用介绍和内部处理流程分析</h1><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li><p>首先是echarts的引入，分为模块化包引入、模块化单文件引入、标签式单文件引入三种</p>
+</li>
+<li><p>其次通过<code>echarts.init()</code>加载使用的dom，实例化图表对象</p>
+</li>
+<li><p>配置图表设置<code>option</code></p>
+</li>
+<li><p>通过<code>myChart.setOption()</code>将配置好的设置加载到图表对象中，然后由echarts自动生成并绘制图表</p>
+</li>
+</ul>
+<h2 id="内部处理流程"><a href="#内部处理流程" class="headerlink" title="内部处理流程"></a>内部处理流程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ChartConfig:function(container,option)&#123; …..&#125;,//加载Echarts配置文件</span><br><span class="line">ChartDataFormate:&#123;….&#125;,//数据格式化</span><br><span class="line">ChartOptionTemplates:&#123;….&#125;,//初始化常用的图表类型</span><br><span class="line">Charts:&#123; RenderChart:function(option)&#123;….&#125;,//渲染图表</span><br><span class="line">RenderMap:function(option)&#123;…&#125;//渲染地图</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;上面的步骤在实际绘图中不会完全的使用到，渲染图表和渲染地图通常只会使用到一种</p>
+<hr>
+<h1 id="图表类型介绍"><a href="#图表类型介绍" class="headerlink" title="图表类型介绍"></a>图表类型介绍</h1><p><code>echarts</code>提供的图表类型有十余种：</p>
+<ul>
+<li><strong>line 折线图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_line.png" alt=""></li>
+<li><strong>bar 柱形图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_bar.png" alt=""></li>
+<li><strong>scatter 散点图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_scatter.png" alt=""></li>
+<li><strong>k K线图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_k.png" alt=""></li>
+<li><strong>pie 饼图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_pie.png" alt=""></li>
+<li><strong>radar 雷达图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_radar.png" alt=""></li>
+<li><strong>chord 和弦图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_chord.png" alt=""></li>
+<li><strong>force 力导向图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_force.png" alt=""></li>
+<li><strong>map 地图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_map.png" alt=""></li>
+<li><strong>heatmap 热力图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_heatmap.png" alt=""></li>
+<li><strong>gauge 仪表盘图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_gauge.png" alt=""></li>
+<li><strong>funnel 漏斗图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_funnel.png" alt=""></li>
+<li><strong>eventRiver 时间河流图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_Event%20River.png" alt=""></li>
+<li><strong>treemap 矩形树图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_treemap.png" alt=""></li>
+<li><strong>venn 韦恩图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_venn.png" alt=""></li>
+<li><strong>tree 树图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_tree.png" alt=""></li>
+<li><strong>wordCloud 字符云图</strong><img src="http://odqa8xkhb.bkt.clouddn.com/example_echarts_wordCloud.png" alt=""></li>
+</ul>
+<hr>
+<h1 id="echarts的简单使用"><a href="#echarts的简单使用" class="headerlink" title="echarts的简单使用"></a>echarts的简单使用</h1><p>&nbsp;&nbsp;这里我借助<code>echarts</code>官方文档的第一个例子使用最简单的标签式单文件引入的方法简单介绍一下它的使用方法</p>
+<ul>
+<li>新建一个HTML5页面</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mate</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Echarts bar<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在页面中添加一个<code>&lt;div&gt;</code>标签用来绘制图表（必须规定宽高）</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mate</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Echarts bar<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"bar"</span> <span class="attr">style</span>=<span class="string">"height: 400px"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>新建<code>&lt;script&gt;</code>标签引入标签式单文件<code>echarts-all.js</code></li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mate</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Echarts bar<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/dist/echarts-all.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"bar"</span> <span class="attr">style</span>=<span class="string">"height: 400px"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>新建<code>&lt;script&gt;</code>标签，使用全局变量<code>echarts</code>初始化图表并驱动图表的生成</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;mate charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;Echarts bar&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">	&lt;script src="js/</span>dist/echarts-all.js<span class="string">"&gt;&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">	&lt;div id="</span>bar<span class="string">" style="</span>height: <span class="number">400</span>px;width: <span class="number">600</span>px<span class="string">"&gt;&lt;/div&gt;</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">    &lt;script&gt;</span></span><br><span class="line"><span class="string">	var myChart = echarts.init(document.getElementById('bar'));</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">	var option = &#123;</span></span><br><span class="line"><span class="string">		tooltip: &#123;</span></span><br><span class="line"><span class="string">			show: true,</span></span><br><span class="line"><span class="string">			tigger: 'axis'</span></span><br><span class="line"><span class="string">		&#125;,</span></span><br><span class="line"><span class="string">		legend: &#123;</span></span><br><span class="line"><span class="string">			data: ['GDP', '人口']</span></span><br><span class="line"><span class="string">		&#125;,</span></span><br><span class="line"><span class="string">		grid: &#123;</span></span><br><span class="line"><span class="string">			borderWidth: 0</span></span><br><span class="line"><span class="string">		&#125;,</span></span><br><span class="line"><span class="string">		xAxis: [</span></span><br><span class="line"><span class="string">			&#123;</span></span><br><span class="line"><span class="string">				type: 'category',</span></span><br><span class="line"><span class="string">				name: '时间',</span></span><br><span class="line"><span class="string">				axisTick: &#123;show: false&#125;,</span></span><br><span class="line"><span class="string">				splitLine: &#123;show: false&#125;,</span></span><br><span class="line"><span class="string">				data: ['2012', '2013', '2014', '2015']</span></span><br><span class="line"><span class="string">			&#125;</span></span><br><span class="line"><span class="string">		],</span></span><br><span class="line"><span class="string">		yAxis: [</span></span><br><span class="line"><span class="string">			&#123;</span></span><br><span class="line"><span class="string">				type: 'value',</span></span><br><span class="line"><span class="string">				splitLine: &#123;show: false&#125;,</span></span><br><span class="line"><span class="string">				name: '中国GDP(万亿)'</span></span><br><span class="line"><span class="string">			&#125;,</span></span><br><span class="line"><span class="string">			&#123;</span></span><br><span class="line"><span class="string">				type: 'value',</span></span><br><span class="line"><span class="string">				splitLine: &#123;show: false&#125;,</span></span><br><span class="line"><span class="string">				name: '中国人口(万)'</span></span><br><span class="line"><span class="string">				&#125;</span></span><br><span class="line"><span class="string">			],</span></span><br><span class="line"><span class="string">		series: [</span></span><br><span class="line"><span class="string">			&#123;</span></span><br><span class="line"><span class="string">				name: 'GDP',</span></span><br><span class="line"><span class="string">				type: 'bar',</span></span><br><span class="line"><span class="string">				yAxisIndex: 0,</span></span><br><span class="line"><span class="string">				data: [534123, 588019, 635910, 676708]</span></span><br><span class="line"><span class="string">			&#125;,</span></span><br><span class="line"><span class="string">			&#123;</span></span><br><span class="line"><span class="string">				name: '人口',</span></span><br><span class="line"><span class="string">				type: 'bar',</span></span><br><span class="line"><span class="string">				yAxisIndex: 1,</span></span><br><span class="line"><span class="string">				data: [135404, 136072, 136782, 137325]</span></span><br><span class="line"><span class="string">			&#125;</span></span><br><span class="line"><span class="string">		]</span></span><br><span class="line"><span class="string">	&#125;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">	myChart.setOption(option);</span></span><br><span class="line"><span class="string">	&lt;/script&gt;</span></span><br><span class="line"><span class="string">&lt;/body&gt;</span></span><br><span class="line"><span class="string">&lt;/html&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;通过以上步骤就能成功使用<code>echarts</code>绘制出一个双Y轴的柱状图<br><img src="http://odqa8xkhb.bkt.clouddn.com/bar_1.png" alt=""></p>
+<p><a href="http://sandbox.runjs.cn/show/j7bd7ffx" target="_blank" rel="noopener">点此在线预览</a></p>
+<hr>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>&nbsp;&nbsp;这次主要介绍了<code>echarts</code>的信息和与其他工具的对比，简要说明了<code>echarts</code>的使用方法和内部处理流程，并且完成了一个双Y轴的柱状图demo</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/D3/" rel="tag"># D3</a>
+          
+            <a href="/tags/echarts/" rel="tag"># echarts</a>
+          
+            <a href="/tags/highcharts/" rel="tag"># highcharts</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/18/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/19/echarts接口说明/" rel="prev" title="echarts接口说明">
+                echarts接口说明 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Kid the Phantom Thief" />
+          <p class="site-author-name" itemprop="name">Kid the Phantom Thief</p>
+           
+              <p class="site-description motion-element" itemprop="description">Good good study, Day day up!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同类对比"><span class="nav-number">2.</span> <span class="nav-text">同类对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echarts的使用介绍和内部处理流程分析"><span class="nav-number">3.</span> <span class="nav-text">echarts的使用介绍和内部处理流程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">3.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部处理流程"><span class="nav-number">3.2.</span> <span class="nav-text">内部处理流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#图表类型介绍"><span class="nav-number">4.</span> <span class="nav-text">图表类型介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#echarts的简单使用"><span class="nav-number">5.</span> <span class="nav-text">echarts的简单使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kid the Phantom Thief</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

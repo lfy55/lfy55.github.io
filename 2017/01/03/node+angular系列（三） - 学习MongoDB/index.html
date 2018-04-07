@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Javascript,node,angular,mongo," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="厚积薄发   说明　　目标：学习MongoDB NoSQL数据库的使用　　实现思路：跟随书籍《Node.js+MongoDb+AngularJS Web开发》学习。">
+<meta name="keywords" content="Javascript,node,angular,mongo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node+angular系列（三） - 学习MongoDB">
+<meta property="og:url" content="https://github.com/lfy55/2017/01/03/node+angular系列（三） - 学习MongoDB/index.html">
+<meta property="og:site_name" content="A sanctuary for KID">
+<meta property="og:description" content="厚积薄发   说明　　目标：学习MongoDB NoSQL数据库的使用　　实现思路：跟随书籍《Node.js+MongoDb+AngularJS Web开发》学习。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-07T04:25:07.618Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node+angular系列（三） - 学习MongoDB">
+<meta name="twitter:description" content="厚积薄发   说明　　目标：学习MongoDB NoSQL数据库的使用　　实现思路：跟随书籍《Node.js+MongoDb+AngularJS Web开发》学习。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/lfy55/2017/01/03/node+angular系列（三） - 学习MongoDB/"/>
+
+
+
+
+
+  <title>node+angular系列（三） - 学习MongoDB | A sanctuary for KID</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A sanctuary for KID</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">personal blog by sqk</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/lfy55/2017/01/03/node+angular系列（三） - 学习MongoDB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kid the Phantom Thief">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A sanctuary for KID">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">node+angular系列（三） - 学习MongoDB</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-01-03T00:00:00+08:00">
+                2017-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端MVC/" itemprop="url" rel="index">
+                    <span itemprop="name">前端MVC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>厚积薄发</p>
+</blockquote>
+<hr>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>　　目标：学习MongoDB NoSQL数据库的使用<br>　　实现思路：跟随书籍《Node.js+MongoDb+AngularJS Web开发》学习。</p>
+<a id="more"></a>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><h2 id="MongoDB安装"><a href="#MongoDB安装" class="headerlink" title="MongoDB安装"></a>MongoDB安装</h2><p>1、下载：<a href="https://www.mongodb.com/" target="_blank" rel="noopener">官网</a>，目前官网最新版本3.4.1，下载一个msi文件。<br>2、选择Custom（自定义）安装，修改路径install即可（安装路径不能有中文）。<br>3、在根目录中新建”data\db”文件夹用来存放数据库文件，新建”data\log”文件夹用来存放日志文件。<br>4、在根目录中新建”mongod.cfg”用来存放配置项，其中的内容有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">systemLog:</span><br><span class="line">    destination: file</span><br><span class="line">    path: F:\MongoDB-3.2\data\log\mongodb.log</span><br><span class="line">storage:</span><br><span class="line">    dbPath: F:\MongoDB-3.2\data\db</span><br></pre></td></tr></table></figure></p>
+<p>其中<code>path</code>表示的是日志存放地址，<code>dbPath</code>表示的存放的数据库的文件目录<br>5、启动MongoDB数据库，通过命令行在”bin”文件夹下使用以下命令<code>mongod.exe --config ..\mongod.cfg</code>来启动数据库。<br>6、在浏览器中访问地址：<code>http://localhost:27017/</code>如果页面提示：It looks like you are trying to access MongoDB over HTTP on the native driver port. 则表示你的MongoDB数据库启动正常。</p>
+<p>附：可以使用<a href="robomongo.org">robomongo</a>界面化管理工具来便捷的管理数据库</p>
+<h2 id="各种命令介绍"><a href="#各种命令介绍" class="headerlink" title="各种命令介绍"></a>各种命令介绍</h2><ul>
+<li><code>show users</code>：列出用户（<code>db,system.users.find()</code>）；</li>
+<li><code>show dbs</code>：显示数据库清单</li>
+<li><code>use testDB</code>：切换到数据库（<code>db = db.getSiblingDb(&#39;testDB&#39;)</code>）</li>
+<li><code>use newDB</code>：创建数据库</li>
+<li><code>db.dropDatabase</code>：删除当前数据库</li>
+<li><code>show collections</code>：显示数据库中集合的列表</li>
+<li><code>db.createCollection(&#39;newCollection&#39;)</code>：创建集合</li>
+<li><code>coll.drop()</code>：删除集合（<code>coll = db.getCollection(&#39;collectionName&#39;)</code>）</li>
+<li><code>coll.find(query)</code>：在集合中查找文档，query是查询条件，使用不带<code>query</code>参数的<code>find()</code>方法返回集合中的所有文档</li>
+<li><code>coll.insert({...})</code>：将文档添加到集合中</li>
+<li><code>coll.remove(query)</code>：从集合中删除文档，query是查询条件，使用不带<code>query</code>参数的<code>remove()</code>方法删除集合中的所有文档</li>
+<li><code>coll.update({query},{update},{options})</code>：查询集合中的文档，然后在他们被找到时更新他们，<code>options</code>对象中有两个属性<code>upsert</code>和<code>multi</code>，他们的值全是布尔值，当<code>upsert</code>为<code>true</code>时，若没找到就创建一个新的文档；当<code>multi</code>为<code>true</code>时与查询匹配的所有文档都会被更新</li>
+</ul>
+<h2 id="MongoDB-Node-js"><a href="#MongoDB-Node-js" class="headerlink" title="MongoDB+Node.js"></a>MongoDB+Node.js</h2><p>使用npm安装MongoDB Node.js驱动程序和Mongoose模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install mongodb</span><br><span class="line">npm install mongoose</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用mongodb包连接数据库（node-mongodb-native）"><a href="#使用mongodb包连接数据库（node-mongodb-native）" class="headerlink" title="使用mongodb包连接数据库（node-mongodb-native）"></a>使用mongodb包连接数据库（node-mongodb-native）</h3><p>书上提供了两种使用<code>mongodb</code>连接数据库的方法：</p>
+<p>1、使用MongoClient对象实例连接到MongoDB<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var Db = require(&apos;mongodb&apos;).Db,</span><br><span class="line">    MongoClient = require(&apos;mongodb&apos;).MongoClient,</span><br><span class="line">    Server = require(&apos;mongodb&apos;).Server;</span><br><span class="line"></span><br><span class="line">  // Set up the connection to the local db</span><br><span class="line">  var mongoclient = new MongoClient(new Server(&quot;localhost&quot;, 27017), &#123;native_parser: true&#125;);</span><br><span class="line"></span><br><span class="line">  // Open the connection to the server</span><br><span class="line">  mongoclient.open(function(err, mongoclient) &#123;</span><br><span class="line"></span><br><span class="line">    // Get the first db and do an update document on it</span><br><span class="line">    var db = mongoclient.db(&quot;integration_tests&quot;);</span><br><span class="line">    db.collection(&apos;mongoclient_test&apos;).update(&#123;a:1&#125;, &#123;b:1&#125;, &#123;upsert:true&#125;, function(err, result) &#123;</span><br><span class="line">      assert.equal(null, err);</span><br><span class="line">      assert.equal(1, result);</span><br><span class="line"></span><br><span class="line">      // Get another db and do an update document on it</span><br><span class="line">      var db2 = mongoclient.db(&quot;integration_tests2&quot;);</span><br><span class="line">      db2.collection(&apos;mongoclient_test&apos;).update(&#123;a:1&#125;, &#123;b:1&#125;, &#123;upsert:true&#125;, function(err, result) &#123;</span><br><span class="line">        assert.equal(null, err);</span><br><span class="line">        assert.equal(1, result);</span><br><span class="line"></span><br><span class="line">        // Close the connection</span><br><span class="line">        mongoclient.close();</span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>但是当我使用时，一直在调用<code>mongoclient.open()</code>时报错：<code>mongoclient.open is not a function</code>，原因暂时不明，找了很久没找到原因，找到会更新。</p>
+<p>2、使用字符串连接到MongoDB<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var MongoClient = require(&apos;mongodb&apos;).MongoClient;</span><br><span class="line">MongoClient.connect(&quot;mongodb://dbadmin:test@localhost:27107/testDB&quot;, function(err, db) &#123;</span><br><span class="line">	// code</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>使用这种方法则可以正常连接数据库，其中<code>mongodb://dbadmin:test@localhost:27107/testDB</code>中<code>dbadmin</code>代表数据库用户账号，<code>test</code>代表密码，<code>testDB</code>代表数据库名称。</p>
+<h3 id="使用mongoose包连接数据库"><a href="#使用mongoose包连接数据库" class="headerlink" title="使用mongoose包连接数据库"></a>使用mongoose包连接数据库</h3><p>除了通过这两种方法，mongoose包提供了一种更为简单方便的数据库连接方式。<br>我简单的改造了一下mongoose包官网的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// 引入 mongoose 这个模块</span><br><span class="line">var mongoose = require(&apos;mongoose&apos;);</span><br><span class="line">// 然后连接对应的数据库：mongodb://localhost/testDB，在地址中端口号省略则默认连接 27017；testDB是数据库的名称</span><br><span class="line">// mongodb 中不需要建立数据库，当你需要连接的数据库不存在时，会自动创建一个出来。</span><br><span class="line">// mongodb 的默认配置只接受来自本机的请求，内网都连不上。如果需要在内网中为其他机器提供 mongodb 服务时，可以去看看 iptables 相关的东西。</span><br><span class="line"></span><br><span class="line">mongoose.connect(&apos;mongodb://localhost/test&apos;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 创建了一个名为 Dog 的 model，它在数据库中的名字根据传给 mongoose.model 的第一个参数（字符串）决定，mongoose 会将名词变为复数，在这里，collection 的名字会是 `dogs`。</span><br><span class="line">// 这个 model 的定义是，有一个 String 类型的 name，String 数组类型的 friends，Number 类型的 age。</span><br><span class="line">// mongodb 中大多数的数据类型都可以用 js 的原生类型来表示。至于说 String 的长度是多少，Number 的精度是多少。String 的最大限度是 16MB，Number 的整型是 64-bit，浮点数的话，js 中 `0.1 + 0.2` 的结果都是乱来的，就不要指望了。</span><br><span class="line">// 这里可以看到各种示例：http://mongoosejs.com/docs/schematypes.html</span><br><span class="line">var Dog = mongoose.model(&apos;Dog&apos;, &#123;</span><br><span class="line">  name: String,</span><br><span class="line">  friends: [String],</span><br><span class="line">  age: Number,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// new 一个新对象，名叫 tom</span><br><span class="line">// 接着为 tom 的属性们赋值</span><br><span class="line">var tom = new Dog(&#123; name: &apos;Tom&apos;, friends: [&apos;kitty&apos;, &apos;hello&apos;]&#125;);</span><br><span class="line">tom.age = 5;</span><br><span class="line"></span><br><span class="line">// 调用 .save 方法后，mongoose 会去 mongodb 中的 testDB 数据库的Dogs集合中，存入一条记录。</span><br><span class="line">tom.save(function (err) &#123;</span><br><span class="line">  if (err) </span><br><span class="line">	console.log(err);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>另外你还可以通过<code>db = mongoose.connection;</code>来获得一个<code>Db</code>对象，并通过以下代码监听数据库连接启动（在调用<code>mongoose.connect(&#39;mongodb://localhost/test&#39;);</code>时数据库连接会自动启动）和错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">db.once(&apos;open&apos;, function callback () &#123;</span><br><span class="line">  // yay!</span><br><span class="line">&#125;);</span><br><span class="line">db.on(&apos;error&apos;, function callback(err) &#123;</span><br><span class="line">	// code</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="各种对象及方法"><a href="#各种对象及方法" class="headerlink" title="各种对象及方法"></a>各种对象及方法</h3><p>如果是使用mongodb获取的数据库连接则需要各种对象来操作数据库</p>
+<ul>
+<li>DB对象，某一个具体数据库的对象，<code>Db.dropDatabase</code>可以删除当前数据库，<code>db.collectionNames(function(err, collectionNames) {});</code>可以获得所有的集合名称的数组，<code>db.collections(function(err, collectionList) {});</code>则可以获得Collection对象的数组，<code>myDb.dropCollection(&quot;collectionName&quot;, function(err, result) {})</code>和<code>myDb.collection(&quot;collectionName&quot;, function(err, collection) { collection.drop();});</code>都可以删除一个集合。</li>
+<li>Admin对象，对数据库执行某些管理职能可以通过两种方式来得到该对象：<code>var adminDb = db.admin();</code>和<code>var adminDb = new Admin(db)</code>，使用这个对象可以ping数据库服务器，添加删除用户，列出数据库等，<code>adminDb.listDatabases(function(err, databases){});</code>可以获得所有数据库的列表，<code>adminDb.serverStatus(function(err,status) {})</code>可以获得数据库的状态;`。</li>
+<li>Collection对象，代表了MongoDB数据库集合，可以通过以下几个方式获得：<code>var collection = db.collection();</code>、<code>var collection = new Collection(db, &quot;collectionName&quot;)</code>、<code>db.createCollection(&quot;collectionName&quot;, function(err, collection){});</code>。</li>
+<li>Cursor对象，当使用MongoDB Nodejs驱动程序在MongoDB中执行某些操作时，结果以Cursor（游标）对象的形式返回，只要使用其each(function(err, item))遍历方法。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+            <a href="/tags/angular/" rel="tag"># angular</a>
+          
+            <a href="/tags/mongo/" rel="tag"># mongo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/26/echarts介绍及使用（二）-3.x新版本特性/" rel="next" title="echarts介绍及使用（二）-3.x新版本特性">
+                <i class="fa fa-chevron-left"></i> echarts介绍及使用（二）-3.x新版本特性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/17/css之单行多行文本自动省略及提示全部文字/" rel="prev" title="css之单行多行文本自动省略及提示全部文字">
+                css之单行多行文本自动省略及提示全部文字 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Kid the Phantom Thief" />
+          <p class="site-author-name" itemprop="name">Kid the Phantom Thief</p>
+           
+              <p class="site-description motion-element" itemprop="description">Good good study, Day day up!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB安装"><span class="nav-number">2.1.</span> <span class="nav-text">MongoDB安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#各种命令介绍"><span class="nav-number">2.2.</span> <span class="nav-text">各种命令介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MongoDB-Node-js"><span class="nav-number">2.3.</span> <span class="nav-text">MongoDB+Node.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用mongodb包连接数据库（node-mongodb-native）"><span class="nav-number">2.3.1.</span> <span class="nav-text">使用mongodb包连接数据库（node-mongodb-native）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用mongoose包连接数据库"><span class="nav-number">2.3.2.</span> <span class="nav-text">使用mongoose包连接数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种对象及方法"><span class="nav-number">2.3.3.</span> <span class="nav-text">各种对象及方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kid the Phantom Thief</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

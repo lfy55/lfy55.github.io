@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Javascript,html,jquery," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="集腋成裘，聚沙成塔   说明通过对github上fileup插件的改写，成功实现了插件的文件批量上传，删除文件，清空文件等功能。">
+<meta name="keywords" content="Javascript,html,jquery">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文件上传之解决篇">
+<meta property="og:url" content="https://github.com/lfy55/2016/12/07/文件上传之解决篇/index.html">
+<meta property="og:site_name" content="A sanctuary for KID">
+<meta property="og:description" content="集腋成裘，聚沙成塔   说明通过对github上fileup插件的改写，成功实现了插件的文件批量上传，删除文件，清空文件等功能。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-07T04:26:04.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="文件上传之解决篇">
+<meta name="twitter:description" content="集腋成裘，聚沙成塔   说明通过对github上fileup插件的改写，成功实现了插件的文件批量上传，删除文件，清空文件等功能。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/lfy55/2016/12/07/文件上传之解决篇/"/>
+
+
+
+
+
+  <title>文件上传之解决篇 | A sanctuary for KID</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A sanctuary for KID</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">personal blog by sqk</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/lfy55/2016/12/07/文件上传之解决篇/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kid the Phantom Thief">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A sanctuary for KID">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">文件上传之解决篇</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-07T00:00:00+08:00">
+                2016-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>集腋成裘，聚沙成塔</p>
+</blockquote>
+<hr>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>通过对github上<a href="https://github.com/haggen/fileup">fileup</a>插件的改写，成功实现了插件的文件批量上传，删除文件，清空文件等功能。</p>
+<a id="more"></a>
+<h1 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h1><p>插件原来只提供了文件批量上传的功能，我通过对其源码的研究添加了文件删除，文件清空的功能，完美符合我的使用要求。</p>
+<h2 id="源代码分析"><a href="#源代码分析" class="headerlink" title="源代码分析"></a>源代码分析</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line">// FileUp v1.0.2</span><br><span class="line">// more on http://github.com/haggen/fileup</span><br><span class="line">;(function(root) &#123;</span><br><span class="line"></span><br><span class="line">  &apos;use strict&apos;;</span><br><span class="line"></span><br><span class="line">  var FileUp, each, proxy;</span><br><span class="line"></span><br><span class="line">  proxy = function(that, fn) &#123;</span><br><span class="line">    return function() &#123;</span><br><span class="line">      fn.apply(that, arguments);</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  each = function(iterable, action) &#123;</span><br><span class="line">    for(var index in iterable) &#123;</span><br><span class="line">      if(iterable.hasOwnProperty(index)) &#123;</span><br><span class="line">        action(index, iterable[index]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;; </span><br><span class="line"></span><br><span class="line">  FileUp = function(options) &#123;</span><br><span class="line">    this.options = FileUp.options;</span><br><span class="line"></span><br><span class="line">    each(options, proxy(this, function(key, value) &#123;</span><br><span class="line">      this.options[key] = value;</span><br><span class="line">    &#125;));</span><br><span class="line"></span><br><span class="line">    if(this.options.endpoint === &apos;&apos;) &#123;</span><br><span class="line">      throw new Error(&apos;Endpoint cannot be empty&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.listeners = &#123;&#125;;</span><br><span class="line">    this.working = 0;</span><br><span class="line">    this.queue = [];</span><br><span class="line">    this.items = [];</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  FileUp.options = &#123;</span><br><span class="line"></span><br><span class="line">    // Limit of simultaneously uploads</span><br><span class="line">    threshold: 1,</span><br><span class="line"></span><br><span class="line">    // Upload enpoint</span><br><span class="line">    endpoint: &apos;&apos;,</span><br><span class="line"></span><br><span class="line">    // Global headers</span><br><span class="line">    headers: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">    // Global additional parameters</span><br><span class="line">    params: &#123;&#125;,</span><br><span class="line"></span><br><span class="line">    // File field name</span><br><span class="line">    field: &apos;file&apos;,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  FileUp.prototype = &#123;</span><br><span class="line">    upload: function(index) &#123;</span><br><span class="line">      var item = this.items[index];</span><br><span class="line"></span><br><span class="line">      item.xhr.addEventListener(&apos;load&apos;, proxy(this, function(e) &#123;</span><br><span class="line">        item.status = &apos;done&apos;;</span><br><span class="line">        this.emit(&apos;success&apos;, item, e);</span><br><span class="line">      &#125;));</span><br><span class="line"></span><br><span class="line">      item.xhr.addEventListener(&apos;error&apos;, proxy(this, function(e) &#123;</span><br><span class="line">        item.status = &apos;failed&apos;;</span><br><span class="line">        this.emit(&apos;error&apos;, item, e);</span><br><span class="line">      &#125;));</span><br><span class="line"></span><br><span class="line">      item.xhr.addEventListener(&apos;abort&apos;, proxy(this, function(e) &#123;</span><br><span class="line">        item.status = &apos;aborted&apos;;</span><br><span class="line">        this.emit(&apos;abort&apos;, item, e);</span><br><span class="line">      &#125;));</span><br><span class="line"></span><br><span class="line">      item.xhr.addEventListener(&apos;loadend&apos;, proxy(this, function(e) &#123;</span><br><span class="line">        this.emit(&apos;done&apos;, item, e);</span><br><span class="line">        this.working -= 1;</span><br><span class="line">        this.work();</span><br><span class="line">      &#125;));</span><br><span class="line"></span><br><span class="line">      item.xhr.upload.addEventListener(&apos;progress&apos;, proxy(this, function(e) &#123;</span><br><span class="line">        this.emit(&apos;progress&apos;, item, e);</span><br><span class="line">      &#125;));</span><br><span class="line"></span><br><span class="line">      item.xhr.open(&apos;POST&apos;, this.options.endpoint, true);</span><br><span class="line"></span><br><span class="line">      each(this.options.headers, proxy(this, function(key, value) &#123;</span><br><span class="line">        item.xhr.setRequestHeader(key, value);</span><br><span class="line">      &#125;));</span><br><span class="line"></span><br><span class="line">      each(this.options.params, proxy(this, function(key, value) &#123;</span><br><span class="line">        item.data.append(key, value);</span><br><span class="line">      &#125;));</span><br><span class="line"></span><br><span class="line">      item.data.append(this.options.field, item.file);</span><br><span class="line"></span><br><span class="line">      item.xhr.send(item.data);</span><br><span class="line"></span><br><span class="line">      item.status = &apos;uploading&apos;;</span><br><span class="line">      this.emit(&apos;upload&apos;, item);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    on: function(event, callback) &#123;</span><br><span class="line">      this.listeners[event] = this.listeners[event] || [];</span><br><span class="line">      this.listeners[event].push(callback);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    emit: function() &#123;</span><br><span class="line">      var event, args;</span><br><span class="line"></span><br><span class="line">      args = [].slice.call(arguments);</span><br><span class="line">      event = args.shift();</span><br><span class="line"></span><br><span class="line">      each(this.listeners[event], proxy(this, function(index, callback) &#123;</span><br><span class="line">        callback.apply(this, args);</span><br><span class="line">      &#125;));</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    work: function() &#123;</span><br><span class="line">      while(this.queue.length &gt; 0 &amp;&amp; this.working &lt; this.options.threshold) &#123;</span><br><span class="line">        this.process(this.queue.shift());</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    process: function(index) &#123;</span><br><span class="line">      this.working += 1;</span><br><span class="line">      this.upload(index);</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    add: function(file) &#123;</span><br><span class="line">      var item = &#123;</span><br><span class="line">        file: file,</span><br><span class="line">        status: &apos;enqueued&apos;,</span><br><span class="line">        index: this.items.length,</span><br><span class="line">        xhr: new XMLHttpRequest(),</span><br><span class="line">        data: new FormData(),</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">      this.items.push(item);</span><br><span class="line">      this.emit(&apos;add&apos;, item);</span><br><span class="line">      this.queue.push(item.index);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  root.FileUp = FileUp;</span><br><span class="line"></span><br><span class="line">&#125;)(window);</span><br></pre></td></tr></table></figure>
+<p>很明显可以看出这是一个jquery的插件。</p>
+<h2 id="插件初始化传入一个option对象，对象中参数为："><a href="#插件初始化传入一个option对象，对象中参数为：" class="headerlink" title="插件初始化传入一个option对象，对象中参数为："></a>插件初始化传入一个<code>option</code>对象，对象中参数为：</h2><ul>
+<li><code>threshold</code>：number-可选（默认1）-文件上传数目限制</li>
+<li><code>endpoint</code>：String-必须-文件上传地址，必须配置</li>
+<li><code>headers</code>：Object-可选-额外的请求头对象</li>
+<li><code>params</code>：Object-可选-额外的请求参数对象</li>
+<li><code>field</code>：String-可选（默认file）-文件上传name标识</li>
+</ul>
+<h2 id="插件包含的监听事件："><a href="#插件包含的监听事件：" class="headerlink" title="插件包含的监听事件："></a>插件包含的监听事件：</h2><ul>
+<li>add：添加文件事件（回调函数的参数item）</li>
+<li>upload：文件上传开始事件（回调函数的参数item）</li>
+<li>success：文件上传成功事件（回调函数的参数item，event）</li>
+<li>error：文件上传失败事件（回调函数的参数item，event）</li>
+<li>abort：终止文件上传事件（回调函数的参数item，event）</li>
+<li>progress：文件上传过程事件（回调函数的参数item，event）</li>
+<li>done：文件上传结束事件（回调函数的参数item，event）</li>
+</ul>
+<h2 id="插件包含的函数："><a href="#插件包含的函数：" class="headerlink" title="插件包含的函数："></a>插件包含的函数：</h2><ul>
+<li>add：参数（File file）-将文件对象添加到队列中</li>
+<li>on：参数（String event，Function callback）-给文件上传对象添加事件监听</li>
+<li>work：参数（无）-开始讲队列中的文件上传</li>
+</ul>
+<h2 id="对插件的改动"><a href="#对插件的改动" class="headerlink" title="对插件的改动"></a>对插件的改动</h2><p>我在对插件进行了一些的扩展，完善了插件的文件队列清空和根据文件名将文件从队列中删除的方法。<br>首先是清空文件列表比较简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">resetList: function() &#123;</span><br><span class="line">      this.working = 0;</span><br><span class="line">      this.queue = [];</span><br><span class="line">      this.items = [];</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>清空文件列表只要将顺序队列，文件队列，序号全部初始化即可。<br>接下来就是根据文件名称删除其中一个文件，这个一开始实现起来稍微有点问题，后台换了一个思路，首先将队列清空，然后将非删除的文件再一个一个的的添加进去即可：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">deleteFile: function(filename) &#123;</span><br><span class="line">      var oldItems = this.items;</span><br><span class="line">      var newQueue = [];</span><br><span class="line">      var newItems = [];</span><br><span class="line">      oldItems.forEach(function(it, i) &#123;</span><br><span class="line">        var index = newItems.length;</span><br><span class="line">        if(it.file.name != filename) &#123;</span><br><span class="line">          var item = &#123;</span><br><span class="line">            file: it.file,</span><br><span class="line">            status: &apos;enqueued&apos;,</span><br><span class="line">            index: index,</span><br><span class="line">            xhr: new XMLHttpRequest(),</span><br><span class="line">            data: new FormData()</span><br><span class="line">          &#125;;</span><br><span class="line"></span><br><span class="line">          newItems.push(item);</span><br><span class="line">          newQueue.push(item.index);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      this.items = newItems;</span><br><span class="line">      this.queue = newQueue;</span><br><span class="line">      this.working = this.working - 1;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>首先创建两个新队列，遍历将原队列中文件名不等于删除文件的文件名的文件添加进去，最后将新队列添赋值给原队列，将<code>working</code>值减一就可以了。</p>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>至此，文件上传插件完成，分享到github上，地址为：<br><a href="https://github.com/lfy55/fileupload">fileupload–lfy55</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/html/" rel="tag"># html</a>
+          
+            <a href="/tags/jquery/" rel="tag"># jquery</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/30/前端使用jquery.fileupload.js上传文件的方法/" rel="next" title="前端使用jquery.fileupload.js上传文件的方法">
+                <i class="fa fa-chevron-left"></i> 前端使用jquery.fileupload.js上传文件的方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/09/文件上传之更新篇/" rel="prev" title="文件上传之更新篇">
+                文件上传之更新篇 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Kid the Phantom Thief" />
+          <p class="site-author-name" itemprop="name">Kid the Phantom Thief</p>
+           
+              <p class="site-description motion-element" itemprop="description">Good good study, Day day up!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内容"><span class="nav-number">2.</span> <span class="nav-text">内容</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#源代码分析"><span class="nav-number">2.1.</span> <span class="nav-text">源代码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件初始化传入一个option对象，对象中参数为："><span class="nav-number">2.2.</span> <span class="nav-text">插件初始化传入一个option对象，对象中参数为：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件包含的监听事件："><span class="nav-number">2.3.</span> <span class="nav-text">插件包含的监听事件：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件包含的函数："><span class="nav-number">2.4.</span> <span class="nav-text">插件包含的函数：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对插件的改动"><span class="nav-number">2.5.</span> <span class="nav-text">对插件的改动</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kid the Phantom Thief</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

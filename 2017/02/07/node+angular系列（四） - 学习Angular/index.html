@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Javascript,node,angular,mongo," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="水滴石穿   说明　　目标：学习Angular相关内容　　实现思路：跟随书籍《Node.js+MongoDb+AngularJS Web开发》学习。">
+<meta name="keywords" content="Javascript,node,angular,mongo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="node+angular系列（四） - 学习Angular">
+<meta property="og:url" content="https://github.com/lfy55/2017/02/07/node+angular系列（四） - 学习Angular/index.html">
+<meta property="og:site_name" content="A sanctuary for KID">
+<meta property="og:description" content="水滴石穿   说明　　目标：学习Angular相关内容　　实现思路：跟随书籍《Node.js+MongoDb+AngularJS Web开发》学习。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-04-07T04:25:29.751Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="node+angular系列（四） - 学习Angular">
+<meta name="twitter:description" content="水滴石穿   说明　　目标：学习Angular相关内容　　实现思路：跟随书籍《Node.js+MongoDb+AngularJS Web开发》学习。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://github.com/lfy55/2017/02/07/node+angular系列（四） - 学习Angular/"/>
+
+
+
+
+
+  <title>node+angular系列（四） - 学习Angular | A sanctuary for KID</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">A sanctuary for KID</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">personal blog by sqk</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://github.com/lfy55/2017/02/07/node+angular系列（四） - 学习Angular/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kid the Phantom Thief">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A sanctuary for KID">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">node+angular系列（四） - 学习Angular</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-07T00:00:00+08:00">
+                2017-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端MVC/" itemprop="url" rel="index">
+                    <span itemprop="name">前端MVC</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>水滴石穿</p>
+</blockquote>
+<hr>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>　　目标：学习Angular相关内容<br>　　实现思路：跟随书籍《Node.js+MongoDb+AngularJS Web开发》学习。</p>
+  <a id="more"></a>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>Node版本：v4.5.0<br>Angular版本：v1.2.32</p>
+<h2 id="全局API"><a href="#全局API" class="headerlink" title="全局API"></a>全局API</h2><table>
+<thead>
+<tr>
+<th>实用程序</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>copy(src, [dst])</td>
+<td style="text-align:center">创建src对象或者数组的深拷贝[赋值给dst]</td>
+</tr>
+<tr>
+<td>element(element)</td>
+<td style="text-align:center">返回一个jQuery元素的DOM元素，是一个jquery对象或者子集</td>
+</tr>
+<tr>
+<td>equals(o1,o2)</td>
+<td style="text-align:center">通过<code>===</code>比较o1和o2两个对象</td>
+</tr>
+<tr>
+<td>extend(dst,src)</td>
+<td style="text-align:center">从src对象复制所有属性到dst对象</td>
+</tr>
+<tr>
+<td>forEach(obj,iterator,[context])</td>
+<td style="text-align:center">遍历obj(对象，数组)集合中的每个对象，iterator是一个要调用的函数，包含value和key两个参数，context指定充当上下文，是在循环中通过<code>this</code>来访问的JavaScript对象</td>
+</tr>
+<tr>
+<td>fromJson(jsonStr)</td>
+<td style="text-align:center">从一个JSON字符串返回一个JavaScript对象</td>
+</tr>
+<tr>
+<td>toJson(jsonObj)</td>
+<td style="text-align:center">返回JavaScript对象的JSON字符串格式</td>
+</tr>
+<tr>
+<td>isArray(value)</td>
+<td style="text-align:center">判断参数value是否是一个数组</td>
+</tr>
+<tr>
+<td>isDate(value)</td>
+<td style="text-align:center">判断参数value是否是一个Date对象</td>
+</tr>
+<tr>
+<td>isDefined(value)</td>
+<td style="text-align:center">判断参数value是否是一个已经定义的对象</td>
+</tr>
+<tr>
+<td>isElement(value)</td>
+<td style="text-align:center">判断参数value是否是一个DOM元素对象或jQuery对象</td>
+</tr>
+<tr>
+<td>isFunction(value)</td>
+<td style="text-align:center">判断参数value是否是一个JavaScript函数</td>
+</tr>
+<tr>
+<td>isNumber(value)</td>
+<td style="text-align:center">判断参数value是否是一个数值</td>
+</tr>
+<tr>
+<td>isObject(value)</td>
+<td style="text-align:center">判断参数value是否是一个JavaScript对象</td>
+</tr>
+<tr>
+<td>isString(value)</td>
+<td style="text-align:center">判断参数value是否是一个String对象</td>
+</tr>
+<tr>
+<td>isUndefined(value)</td>
+<td style="text-align:center">判断参数value是否是<code>undifined</code></td>
+</tr>
+<tr>
+<td>lowercase(string)</td>
+<td style="text-align:center">返回参数string的小写版本</td>
+</tr>
+<tr>
+<td>uppercase(string)</td>
+<td style="text-align:center">返回参数string的大写版本</td>
+</tr>
+</tbody>
+</table>
+<h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><h3 id="过滤器使用方法"><a href="#过滤器使用方法" class="headerlink" title="过滤器使用方法"></a>过滤器使用方法</h3><p>1、可以在视图表达式中使用:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;expression | filter&#125;&#125; //单个过滤器的使用</span><br><span class="line">&#123;&#123;expression | filter | filter&#125;&#125; //可以把多个过滤器链接在一起，他们将按照指定好的顺序执行</span><br><span class="line">&#123;&#123;expression | filter:parameter1:parameter2&#125;&#125; //有些过滤器可以提供输入</span><br></pre></td></tr></table></figure></p>
+<p>2、使用依赖注入添加过滤器，这些是控制器和服务的提供器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 使用特定的过滤器</span><br><span class="line">controller(&apos;myController&apos;, [&apos;$scope&apos;, &apos;currencyFilter&apos;, function($scope, currencyFilter) &#123;</span><br><span class="line">	$scope.getCurrencyValue = function(value) &#123;</span><br><span class="line">		return currencyFilter(value, &quot;$USD&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;]);</span><br><span class="line">// currencyFilter被添加到用于控制器的依赖注入中，并作为一个函数调用</span><br><span class="line"></span><br><span class="line">// 使用过滤器集合 $filter</span><br><span class="line">controller(&apos;myController&apos;, [&apos;$scope&apos;, &apos;$filter&apos;, function($scope, $filter) &#123;</span><br><span class="line">	$scope.getCurrencyValue = function(value) &#123;</span><br><span class="line">		return $filter(&apos;currency&apos;)(value, &quot;$USD&quot;); // $filter(&apos;currency&apos;) == currencyFilter</span><br><span class="line">	&#125;</span><br><span class="line">&#125;]);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Angular内置的过滤器-‘-‘代表’-’-markdown语法冲突"><a href="#Angular内置的过滤器-‘-‘代表’-’-markdown语法冲突" class="headerlink" title="Angular内置的过滤器(‘/‘代表’|’,markdown语法冲突)"></a>Angular内置的过滤器(‘/‘代表’|’,markdown语法冲突)</h3><table>
+<thead>
+<tr>
+<th>过滤器</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>currency[:symbol]</td>
+<td style="text-align:center">使用所提供的的symbol值把数字格式设置为货币，如果没有提供symbol值，则使用为该地区默认的符号，例如：&#123;&#123;123.46 / currency:”$USD”}}</td>
+</tr>
+<tr>
+<td>filter:exp:compare</td>
+<td style="text-align:center">使用exp参数的值，根据compare值过滤表达式，例如：&#123;&#123;”Some Text to Compare” / filter:”text”:false }}</td>
+</tr>
+<tr>
+<td>json</td>
+<td style="text-align:center">把一个JavaScript对象格式化成JSON字符串，例如：&#123;&#123; &#123;’name’:’Brad’} / json }} /</td>
+</tr>
+<tr>
+<td>limitTo:limit</td>
+<td style="text-align:center">由limit值限制表达式中所表示的数据。如果表达式是一个String，则限制字符数，如果表达式是一个Array，则显示元素数目，例如：&#123;&#123; [‘a’, ‘b’, ‘c’, ‘d’] / limitTo:2}}</td>
+</tr>
+<tr>
+<td>lowercase</td>
+<td style="text-align:center">输出转换成小写的结果，例如：&#123;&#123; ‘aBcDe’ / lowercase }}</td>
+</tr>
+<tr>
+<td>uppercase</td>
+<td style="text-align:center">输出转换成大写的结果，例如：&#123;&#123; ‘aBcDe’ / lowercase }}</td>
+</tr>
+<tr>
+<td>number[:fraction]</td>
+<td style="text-align:center">把数值格式化为文本。如果指定了fraction参数，那么其大小限制所显示的小数的位数(四舍五入)，例如：&#123;&#123; 123.456789 / number:3 }}</td>
+</tr>
+<tr>
+<td>orderBy:exp:reverse</td>
+<td style="text-align:center">根据exp参数对数组排序，exp参数可以是一个函数，它计算数组中的一个条目的值；或者是一个字符串，它指定对象数组一个对象属性。reverse参数为true表示降序，为false表示升序，例如：&#123;&#123; [&#123;’id’:1},&#123;’id’:3},&#123;’id’:2}] / orderBy:’id’:true }}</td>
+</tr>
+<tr>
+<td>data[:format]</td>
+<td style="text-align:center">使用format参数格式化JavaScript Date对象、时间戳或日期ISO 8601的日期字符串，例如：&#123;&#123; 1389323623006 / date: ‘yyyy-MM-dd HH:mm:ss Z’}}</td>
+</tr>
+</tbody>
+</table>
+<h3 id="自定义的过滤器"><a href="#自定义的过滤器" class="headerlink" title="自定义的过滤器"></a>自定义的过滤器</h3><p>AngularJS提供了<code>filter()</code>方法来创建一个过滤器提供器，并把它注册到依赖注入的服务器。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">filter(&apos;myFilter&apos;, function() &#123; // 创建一个名为myFilter的过滤器</span><br><span class="line">	retrun function(input, param1, param2) &#123;</span><br><span class="line">		return &lt;&lt;modified input&gt;&gt;;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h2 id="Angular指令"><a href="#Angular指令" class="headerlink" title="Angular指令"></a>Angular指令</h2><p>指令部分中自带的指令都是比较常用的指令，自己定义指令部分看的云里雾里，不是很清楚，暂时先不写关于这方面的东西。</p>
+<h2 id="AngularJS服务"><a href="#AngularJS服务" class="headerlink" title="AngularJS服务"></a>AngularJS服务</h2>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+            <a href="/tags/angular/" rel="tag"># angular</a>
+          
+            <a href="/tags/mongo/" rel="tag"># mongo</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/18/js之在jQuery选择器中选择js对象/" rel="next" title="js之在jQuery选择器中选择js对象">
+                <i class="fa fa-chevron-left"></i> js之在jQuery选择器中选择js对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/22/css之横向纵向radio菜单布局/" rel="prev" title="css之横向纵向radio菜单布局">
+                css之横向纵向radio菜单布局 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/head.jpg"
+               alt="Kid the Phantom Thief" />
+          <p class="site-author-name" itemprop="name">Kid the Phantom Thief</p>
+           
+              <p class="site-description motion-element" itemprop="description">Good good study, Day day up!</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全局API"><span class="nav-number">2.1.</span> <span class="nav-text">全局API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过滤器"><span class="nav-number">2.2.</span> <span class="nav-text">过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#过滤器使用方法"><span class="nav-number">2.2.1.</span> <span class="nav-text">过滤器使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Angular内置的过滤器-‘-‘代表’-’-markdown语法冲突"><span class="nav-number">2.2.2.</span> <span class="nav-text">Angular内置的过滤器(‘/‘代表’|’,markdown语法冲突)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义的过滤器"><span class="nav-number">2.2.3.</span> <span class="nav-text">自定义的过滤器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Angular指令"><span class="nav-number">2.3.</span> <span class="nav-text">Angular指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AngularJS服务"><span class="nav-number">2.4.</span> <span class="nav-text">AngularJS服务</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kid the Phantom Thief</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
